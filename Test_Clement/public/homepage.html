@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<style type='text/css'>
+    #card {
+        height: 550px;
+        width: 400px;
+        margin: auto;
+        margin-top: 60px;
+        border: solid 1px #CCC;
+        /* SOME CSS3 DIV SHADOW */
+        -webkit-box-shadow: 0px 0px 10px #CCC;
+        -moz-box-shadow: 0px 0px 10px #CCC;
+        box-shadow: 0px 0px 10px #CCC;
+        /* CSS3 ROUNDED CORNERS */
+        -moz-border-radius: 5px;
+        -webkit-border-radius: 5px;
+        -khtml-border-radius: 5px;
+        border-radius: 5px;
+        background-color: #FFF;
+    }
+
+    #cardBtn {
+        height: 20px;
+        line-height: 10px;
+        width: 120px;
+        text-align: center;
+    }
+
+    #card h1 {
+        text-align: center;
+    }
+
+    #card form {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+</style>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Index</title>
+</head>
+<header>
+    <div class="dropdown">
+        <button onclick="myFunction()" class="dropbtn">Dropdown</button>
+        <div id="myDropdown" class="dropdown-content">
+            <a href="homepage.html">Home</a>
+            <a href="cards.html">Index</a>
+            <a href="calendar.html">Calendar</a>
+        </div>
+    </div>
+    <div class="login_button">
+        <button type="button">Login</button>
+    </div>
+</header>>
+
+<body>
+    <div id='card'>
+        <form>
+            <div>
+                <input type="text" id="fname" name="firstname" placeholder="Add title">
+            </div>
+            <div class="cardBtn_left">
+                <button id="cardBtn" type="button">Event</button>
+            </div>
+            <div class="cardBtn_right">
+                <button id="cardBtn" type="button">Note</button>
+            </div>
+            <div class="form-row show-inputbtns">
+                <input type="date" data-date-inline-picker="false" data-date-open-on-focus="true" />
+            </div>
+            <div>
+                <input type="time" value="00:00:00" step="1800">
+            </div>
+            <div> <textarea name="message" rows="10" cols="30" placeholder="Add description"></textarea></div>
+            <div><input type="submit" value="Submit"></div>
+        </form>
+    </div>
+</body>
+
+</html>
