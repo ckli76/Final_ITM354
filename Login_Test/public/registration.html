@@ -1,0 +1,190 @@
+<!-- Forked & Adapted from Clement Li: Assingment 2 - Registration Page -->
+
+<!-- https://www.roseindia.net/javascript/AlphanumericValidationinJavaScript.shtml -->
+<!-- https://www.w3schools.com/howto/howto_js_toggle_password.asp -->
+<!-- https://html5-tutorial.net/form-validation/validating-email/ -->
+<!-- https://www.geeksforgeeks.org/password-matching-using-javascript/ -->
+<!-- Use IsNonNegInt from labs as reference -->
+<!-- Registration adapted and changed from Lab14-->
+
+<!DOCTYPE html>
+<html lang="en">
+<script>
+    //Adapted from https://www.geeksforgeeks.org/password-matching-using-javascript/
+    function PWFunction() {
+        var showPW = document.getElementById("PWInput") //Get the values from password input using ID and sets variable to make easier
+        if (showPW.type === "password") { //Testing for both the type and the value to be the same.
+            showPW.type = "text"; //Change the type into text. Password type in html automatically puts black dots
+        } else {
+            showPW.type = "password"; //Do nothing
+        }
+    }
+
+    function PWrepeatFunction() {
+        var repeatPW = document.getElementById("PWrepeat") //Get the values from repeat password input using ID and sets variable to make easier
+        if (repeatPW.type === "password") { //Testing for both the type and the value to be the same.
+            repeatPW.type = "text"; //Change the type into text. Password type in html automatically puts black dots
+        } else {
+            repeatPW.type = "password"; //Do nothing
+        }
+    }
+    
+    //Mostly commented on the server.js, similar code with some things changed,
+    var letters = /^[0-9a-zA-Z]+$/;
+
+    function UsernameError(q, sendArrayBack = false) {
+        errors = []; // assume no errors at first
+        if (q.length < 1 && q.length > -1) errors.push('Do not leave empty!'); { } //Specifically if it's empty it will display
+        if (q.length > 0 && q.length < 4) errors.push('Too short!'); //The length 0 prevents message from being displayed along the other message about length
+        if (q.length > 15) errors.push('Too long!');
+        if (q.match(letters)) { }
+        else { errors.push('Alphanumeric only!') };
+        if (sendArrayBack) {
+            return (errors);
+        }
+    }
+
+    function checkUserName() {
+        errs = UsernameError(basic_register.username_box.value, true);
+        if (errs.length > 0) {
+            username_box_message.innerHTML = errs.join(" | ");
+        }
+        else {
+            username_box_message.innerHTML = "&#10004;"
+        }
+    }
+
+    function PasswordError(q, sendArrayBack = false) {
+        errors = []; // assume no errors at first
+        if (q.length < 1 && q.length > -1) errors.push('Do not leave empty!'); { } 
+        if (q.length > 0 && q.length < 5) errors.push('Too short!');
+        if (sendArrayBack) {
+            return (errors);
+        }
+    }
+
+    function checkPassword() {
+        errs = PasswordError(basic_register.PWInput.value, true);
+        if (errs.length > 0) {
+            password_box_message.innerHTML = errs.join(" | ");
+        }
+        else {
+            password_box_message.innerHTML = "&#10004;" //Check mark
+        }
+    }
+
+    var password1; //Declare global variable, otherwise wouldn't work in other function
+
+    //Adapted from one of the links above
+    //Basically gets the form ID and a specific element that is named in the form
+    //Sets the password1 every time person types
+    function updatePassword() {
+        password1 = document.getElementById("basic_registerID").elements.namedItem("password").value;
+    }
+
+    function RePasswordError(q, sendArrayBack = false) {
+        errors = []; // assume no errors at first
+        if (q.length < 1 && q.length > -1) errors.push('Do not leave empty!'); { }
+        if (q.match(password1) && q.length == password1.length) { } //This checks if the repeat input matches with the original
+        // In addition, the length must match because the checkmark would remain as long as the needed characters matched.
+        else { errors.push('Passwords do not match!') };
+        if (sendArrayBack) {
+            return (errors);
+        }
+    }
+
+    function REcheckPassword() {
+        errs = RePasswordError(basic_register.PWrepeat.value, true);
+        if (errs.length > 0) {
+            REpassword_box_message.innerHTML = errs.join(" | ");
+        }
+        else {
+            REpassword_box_message.innerHTML = "&#10004;"
+        }
+    }
+
+    //Adapted from one of the websites
+    var email_letters = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+
+    function EmailError(q, sendArrayBack = false) {
+        errors = []; // assume no errors at first
+        if (q.length < 1 && q.length > -1) errors.push('Do not leave empty!'); { }
+        if (q.match(email_letters)) { }
+        else { errors.push('Valid email only!') };
+        if (sendArrayBack) {
+            return (errors);
+        }
+    }
+
+    function checkEmail() {
+        errs = EmailError(basic_register.email_box.value, true);
+        if (errs.length > 0) {
+            email_box_message.innerHTML = errs.join(" | ");
+        }
+        else {
+            email_box_message.innerHTML = "&#10004;"
+        }
+    }
+
+</script>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Registration</title>
+    <link href="style.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="login-box">
+        <form id="basic_registerID" name="basic_register" method="POST" action="/register">
+            <div class="textbox">
+                <input type="text" name="username" id="username_box" size="40" placeholder="enter username"
+                    onkeyup="checkUserName();"></div>
+                    <!-- Check if the username fits parameters-->
+            <div class="alert_box">
+                <div class='alert_message' id='username_box_message'></div>
+                <!-- This is where the function to tell what is wrong is display-->
+            </div>
+            <br />
+            <div class="textbox">
+                <input type="password" name="password" id="PWInput" size="40" placeholder="enter password"
+                    onkeyup="checkPassword(); updatePassword(); REcheckPassword();"></div>
+                    <!-- Checks everytime user types something in: if the password fits parameters, updates the global variable (password1), 
+                    See if the other password matches because if it doesn't I could just match the first 5 letters and the checkmark in repeat_password would still
+                    be there even if I continued typing-->
+            <div class="alert_box">
+                <div class='alert_message' id='password_box_message'></div>
+                <!-- This is where the function to tell what is wrong is display-->
+            </div>
+            <br />
+            <div class="textbox">
+                <input type="password" name="repeat_password" id="PWrepeat" size="40" placeholder="enter password again"
+                    onkeyup="REcheckPassword();"></div>
+                <!-- Check if the password is the same as the original-->
+            <div class="alert_box">
+                <div class='alert_message' id='REpassword_box_message'></div>
+                <!-- This is where the function to tell what is wrong is display-->
+            </div>
+            <br />
+            <div class="textbox">
+                <input type="email" name="email" size="40" id="email_box" placeholder="enter email"
+                    onkeyup="checkEmail();">
+                <!-- Check if the email fits parameters-->
+            </div>
+            <div class="alert_box">
+                <div class='alert_message' id='email_box_message'></div>
+                <!-- This is where the function to tell what is wrong is display-->
+            </div>
+            <br />
+            <input type="submit" value="Register" id="submit_register">
+            <!-- Submit this and this will make the POST action occur-->
+            <input type="checkbox" onclick="PWFunction(); PWrepeatFunction()">Show Password
+             <!-- Check this box and the functions will unreveal the black dots-->
+            <p class="message">Already a user? <a href='./login.html'>Login</a></p>
+        </form>
+    </div>
+</body>
+
+</html>

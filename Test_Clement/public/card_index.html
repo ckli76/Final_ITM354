@@ -1,0 +1,67 @@
+<script src="./user_datatest.json" type="text/javascript"></script>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<style type='text/css'>
+    #card {
+        height: 275px;
+        width: 200px;
+        border: solid 1px #CCC;
+        /* SOME CSS3 DIV SHADOW */
+        -webkit-box-shadow: 0px 0px 10px #CCC;
+        -moz-box-shadow: 0px 0px 10px #CCC;
+        box-shadow: 0px 0px 10px #CCC;
+        /* CSS3 ROUNDED CORNERS */
+        -moz-border-radius: 5px;
+        -webkit-border-radius: 5px;
+        -khtml-border-radius: 5px;
+        border-radius: 5px;
+        background-color: #FFF;
+    }
+</style>
+
+<body>
+    <div id='card_index'>
+        <input type='button' value='Tasks'>
+        <input type='button' value='Work'>
+        <input type='button' value='Appointments'>
+        <input type='button' value='Occasion'>
+        <input type='button' value='Notes'>
+        <br>
+        <br>
+        <div id='card_list'>
+            <h1>Today</h1>
+            <script>
+            </script>
+            <h1>Tomorrow</h1>
+            <h1>This Week</h1>
+            <h1>This Month</h1>
+            <h1>This Year</h1>
+            <h1>Notes</h1>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</body>
+
+<script>
+        //<div id= 'card'>
+        //    </div>
+
+        for (var k = 0; k < tester.length; k++) {
+            for (var i = 0; i < tester[k].tasks.length; i++) {
+                var test_trial = tester[k].tasks[i];
+                console.log(test_trial.title + ": " + test_trial.description);
+            }
+        }
+    </script>
+
+</html>

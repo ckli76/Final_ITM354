@@ -1,0 +1,169 @@
+ /* General */
+ 
+body {
+  width: 800px;
+  margin: 0 auto;
+  background-image: url("https://media.giphy.com/media/xUA7aXlhmKHBNLH3jy/giphy.gif");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
+  width: 800px;
+  margin: 0 auto;
+} 
+
+/* Index Style */
+
+.banner {
+  width: 400px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  padding: 40px;
+  background: rgba(255, 255, 255, 0.05);
+  box-sizing: border-box;
+  box-shadow: 0 15px 25px rgba(0,0,0,.5);
+  border-radius: 10px;
+}
+
+.index_word {
+  font-family: 'Helvetica Neue', sans-serif;
+  font-size: 150%;
+  font-weight: 700;
+  color: #eee;
+  margin-bottom: 20px;
+  letter-spacing: 1px; 
+}
+
+.banner button  {
+  width: 180px;
+  padding: 12px;
+  margin: 20px;
+  border: 2px solid #eee;
+  font-size: 18px;
+  outline: none;
+  letter-spacing: 1px;
+  cursor: pointer;
+  background-color: transparent;
+  color: #eee
+}
+
+/* Produts Display & Invoice Style */
+
+h1 {
+  font-family: 'Helvetica Neue', sans-serif;
+  font-size: 150%;
+  font-weight: 700;
+  color: rgb(0, 0, 0, 0.5);
+  margin-bottom: 20px;
+  letter-spacing: 1px; 
+}
+
+h2 {
+  font-family: 'Helvetica Neue', sans-serif;
+  font-size: 150%;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.5);
+  margin-bottom: 20px;
+  letter-spacing: 1px; 
+}
+
+/* Table Style */
+table {
+  font-family: 'Helvetica Neue', sans-serif;
+  font-size: 150%;
+  font-weight: 50;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 20px;
+  letter-spacing: 1px;
+  padding: 10px;
+  background: rgba(95, 95, 95, 0.4);
+  border-radius: 10px;
+  box-sizing: border-box;
+  box-shadow: 0 15px 25px rgba(0,0,0,.3);
+}
+
+th, td {
+  border:2px white;
+}
+
+
+
+/* Login & Registration Style */
+.login-box{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px;
+  padding: 40px;
+  background: rgba(255, 255, 255, 0.75);
+  box-sizing: border-box;
+  box-shadow: 0 15px 25px rgba(0,0,0,.5);
+  border-radius: 10px;
+}
+
+
+.textbox{
+  width: 100%;
+  overflow: hidden;
+  font-size: 20px;
+  padding: 8px 0;
+  margin: 8px 0;
+  border-bottom: 1.5px solid #4caf4f73;
+}
+
+.textbox input{
+  border: none;
+  outline: none;
+  background: none;
+  color: rgb(0, 0, 0);
+  font-size: 18px;
+  width: 80%;
+  float: left;
+  margin: 0 10px;
+}
+
+input[type=submit] {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #fff;
+  background: #038103;
+  padding: 10px 30px;
+  cursor: pointer;
+  border-radius: 5px;
+  margin: 5px 0;
+  text-align: center;
+}
+
+.submit_button
+{
+  text-align: center;
+}
+
+.message
+{
+  text-align: center;
+  color: #646464;
+}
+
+.alert_box {
+  position: absolute;
+  display: flex;
+  cursor: pointer;
+}
+
+.alert_box .alert_message {
+  visibility: visible;
+  width: 300px;
+  color: rgb(0, 0, 0, 0.5);
+  font-weight: bold;
+  font-size: 11px;
+  text-align: center;
+  border-radius: 10px;
+  position: absolute;
+  z-index: 1;
+}

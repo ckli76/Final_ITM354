@@ -1,0 +1,97 @@
+{
+    "tester":{
+        "name": "John Doe",
+        "password": "johndoe",
+        "email": "johndoe@hawaii.edu",
+        "tasks": [
+            {
+                "title": "test",
+                "event": true,
+                "note": false,
+                "date": "test",
+                "time": "test",
+                "description": "test"
+            },
+            {
+                "title": "test",
+                "event": true,
+                "note": false,
+                "date": "test",
+                "time": "test",
+                "description": "test"
+            }
+        ],
+        "work": [
+            {
+                "title": "test",
+                "event": true,
+                "note": false,
+                "date": "test",
+                "time": "test",
+                "description": "test"
+            },
+            {
+                "title": "test",
+                "event": true,
+                "note": false,
+                "date": "test",
+                "time": "test",
+                "description": "test"
+            }
+        ],
+        "appointments": [
+            {
+                "title": "test",
+                "event": true,
+                "note": false,
+                "date": "test",
+                "time": "test",
+                "description": "test"
+            },
+            {
+                "title": "test",
+                "event": true,
+                "note": false,
+                "date": "test",
+                "time": "test",
+                "description": "test"
+            }
+        ],
+        "occasion": [
+            {
+                "title": "test",
+                "event": true,
+                "note": false,
+                "date": "test",
+                "time": "test",
+                "description": "test"
+            },
+            {
+                "title": "test",
+                "event": true,
+                "note": false,
+                "date": "test",
+                "time": "test",
+                "description": "test"
+            }
+        ],
+        "notes": [
+            {
+                "title": "test",
+                "event": false,
+                "note": true,
+                "date": "test",
+                "time": "test",
+                "description": "test"
+            },
+            {
+                "title": "test",
+                "event": false,
+                "note": true,
+                "date": "test",
+                "time": "test",
+                "description": "test"
+            }
+        ]
+    }
+}

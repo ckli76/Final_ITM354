@@ -1,0 +1,33 @@
+<!-- Forked from Clement Li: Assingment 2 - Registration Page -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Login</title>
+    <link href="style.css" rel="stylesheet">
+</head>
+
+<!-- Login & Adapted adapted and changed from Lab14--> 
+<!-- Very straightforward login page with <div> to help me figure out CSS-->
+<body>
+    <div class="login-box">
+        <form name="basic_login" method="POST" action="/login">
+            <div class="textbox">
+                <input type="text" id="username_input" name="username" size="40" placeholder="username"><br />
+            </div>
+            <div class="textbox">
+                <input type="password" name="password" size="40" placeholder="password"><br />
+            </div>
+            <div class=submit_button>
+                <input type="submit" value="Login" id="submit_login">
+            </div>
+            <p class="message">Not a user? <a href='./registration.html'>Register</a></p>
+        </form>
+    </div>
+</body>
+
+</html>
