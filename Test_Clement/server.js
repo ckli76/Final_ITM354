@@ -1,7 +1,12 @@
+var express = require('express');
+var app = express();
+var cookieParser = require('cookie-parser');
+app.use(cookieParser());
 var fs = require('fs');
 var express = require('express');
 var app = express();
 var myParser = require("body-parser");
+
 
 app.use(myParser.urlencoded({ extended: true }));
 var filename = 'user_data.json' // Set variable filename to reference user_data.json
@@ -25,8 +30,13 @@ app.post("/login", function (request, response) {
     //console.log(the_username)
     //console.log(the_password)
     if (typeof users_reg_data[the_username] != 'undefined') { //check if the username exists in the json data
-        if (users_reg_data[the_username].password == the_password)
-            response.send(the_username + ' logged in! ');
+        if (users_reg_data[the_username].password == the_password) {
+            response.cookie('name', `${the_username}`, { maxAge: 1000000000000000 }).redirect('homepage.html'); //setting username and expire time to cookies
+            console.log(`${the_username}` + " has logged on successfully!");
+        } else {
+            response.redirect('login.html');
+        }
+
     } else {
         response.redirect('login.html');
     }
