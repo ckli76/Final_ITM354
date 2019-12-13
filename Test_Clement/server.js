@@ -37,7 +37,8 @@ app.post("/login", function (request, response) {
     if (typeof users_reg_data[the_username] != 'undefined') { //check if the username exists in the json data
         if (users_reg_data[the_username].password == the_password) {
             console.log(`${the_username}` + " has logged on successfully!");
-            
+            msg = `<html><script>if(!alert("Welcome " + ${the_username})) document.location = 'homepage.html'; </script></html>`;
+            response.send(msg);
             // alert('This is what an alert message looks like.');
         } else {
             msg = `<html><script>if(!alert("invalid password")) document.location = 'login.html'; </script></html>`;
@@ -127,8 +128,8 @@ app.post("/register", function (request, response) {
         fs.writeFileSync(filename, JSON.stringify(users_reg_data));
 
         console.log(output_data)
-        response.cookie(`${username_input}`, `${request.sessionID}`, { maxAge: 1000000000000000 }).redirect('homepage.html');
-        msg = `<html><script>if(!alert("Welcome!")) document.location = 'homepage.html'; </script></html>`;
+        response.cookie(`${username_input}`, `${request.sessionID}`, { maxAge: 1000000000000000 }).redirect('homepage.html'); //session f
+        msg = `<html><script>if(!alert("Welcome" + ${username_input}) document.location = 'homepage.html'; </script></html>`;
             response.send(msg); //to send an alert and redirect after registration
         //response.send(`${username_input} registered!`);
     }
