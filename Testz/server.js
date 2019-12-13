@@ -1,0 +1,79 @@
+// Forked & Adapted from Clement Li: Assingment 2 - server.js (Login & Registration) -->
+
+var fs = require('fs');
+var express = require('express');
+var app = express();
+var myParser = require("body-parser");
+
+app.use(myParser.urlencoded({ extended: true }));
+var filename = 'user_datatest.json' // Set variable filename to reference user_data.json
+
+//Assignment 2 Code
+var filename = 'user_datatest.json' // Set variable filename to reference user_data.json
+
+if (fs.existsSync(filename)) { //check to see if file exists
+    stats = fs.statSync(filename);
+    console.log(filename + ' has ' + stats.size + ' characters');
+    raw_data = fs.readFileSync(filename, 'utf-8')
+    var users_reg_data = JSON.parse(raw_data); // variable users_reg_data = users registration data
+    //console.log(users_reg_data);
+    //console.log(raw_data)
+} else {
+    console.log(filename + ' does not exist!');
+}
+
+app.post("/test", function (request, response) {
+    console.log("Got Request")
+
+    response.end(JSON.stringify(users_reg_data))
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*This is where the magic happens: We figure out what
+ - Cards belong to today, tomorrow, this week, etc.
+ - Organize by time
+       - The most essential is the date & the time
+           - Compare vs a function that records today vs date
+           - Compare times for all the arrays
+       - Example: Fetching all the same product types
+ - Organize by tag
+ - Have one for all */
+
+
+// Make an username input for all the pages for now. 
+
+//console.log(users_reg_data.tester.tasks[0])
+//console.log(users_reg_data.tester.tasks[0].title)
+//console.log(users_reg_data.tester.tasks.length)
+
+/* for (var i = 0; i < users_reg_data.tester.tasks.length; i++) {
+    var test = users_reg_data.tester.tasks[i];
+    //for (var j = 0; j < test.length; j++) {
+       // var version = test[j];
+    //}
+}
+
+console.log(test) */
+
+
+
+
+// look for files in the "public" folder and listen on port 8080
+app.use(express.static('./public'));
+app.listen(8080, () => console.log(`listening on port 8080`));
+
+//https://stackoverflow.com/questions/27812639/display-alert-message-in-browser-using-node-js
+//https://www.webucator.com/tutorial/learn-ajax/intro-ajax-the-nodejs-server.cfm
