@@ -138,6 +138,7 @@ app.post("/register", function (request, response) {
         response.redirect('registration.html');
     }
 });
+
 //Card Registration Code - Clement Li
 
 app.post("/card_registered", function (request, response) {
@@ -145,7 +146,6 @@ app.post("/card_registered", function (request, response) {
     console.log("Got the card registration request"); //Lets admin know grabbing the registration data was a success
     console.log(request.body); //Lets admin see what was inputted in all the fields
     // process a card request
-
 
     username_data = cardData.username;
     title_data = cardData.title;
