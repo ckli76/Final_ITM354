@@ -10,6 +10,7 @@ var app = express();
 var myParser = require("body-parser");
 var session = require('express-session');
 var moment = require("moment"); //Need this in the other server.
+var session = require('express-session');
 
 app.use(session({ secret: "ITM352 rocks!" }));
 app.use(myParser.urlencoded({ extended: true }));
