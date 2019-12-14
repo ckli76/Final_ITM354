@@ -10,7 +10,7 @@ var app = express();
 var myParser = require("body-parser");
 var session = require('express-session');
 
-pp.use(session({ secret: "ITM352 rocks!" }));
+app.use(session({ secret: "ITM352 rocks!" }));
 app.use(myParser.urlencoded({ extended: true }));
 
 //Assignment 2 Code
@@ -194,3 +194,4 @@ app.listen(8080, () => console.log(`listening on port 8080`));
 
 //https://stackoverflow.com/questions/27812639/display-alert-message-in-browser-using-node-js
 //https://www.webucator.com/tutorial/learn-ajax/intro-ajax-the-nodejs-server.cfm
+});
