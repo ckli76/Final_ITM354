@@ -231,7 +231,7 @@ const EqualMonth = userCardData.filter(YESmonth => week < YESmonth.date && YESmo
 const sortMonth = EqualMonth.sort((a, b) => (a.date > b.date || a.time > b.time ? 1 : -1));
 //const sortTime = sortAges.sort((a, b) => (a.time > b.time ? 1 : -1));
 
-//console.log(sortMonth)
+console.log(sortMonth)
 //Next is Year: Checking for year from current date
 
 /*var m5 = moment();

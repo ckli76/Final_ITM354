@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 
+<script>
+</script>
+<!-- SCRIPT ENDS HERE-->
+
+<!-- STYLE STARTS HERE-->
+
 <style type='text/css'>
     #card {
         height: 550px;
@@ -48,7 +54,7 @@
         <button onclick="myFunction()" class="dropbtn">Dropdown</button>
         <div id="myDropdown" class="dropdown-content">
             <a href="homepage.html">Home</a>
-            <a href="cards.html">Index</a>
+            <a href="card_index.html">Index</a>
             <a href="calendar.html">Calendar</a>
         </div>
     </div>
@@ -59,24 +65,43 @@
 
 <body>
     <div id='card'>
-        <form>
+        <form name="card_input" id="card_input" method="POST" action="/card_registered">
+            <input type="text" id="username" name="username" placeholder="Placeholder for Username">
             <div>
-                <input type="text" id="fname" name="firstname" placeholder="Add title">
+                <input type="text" id="title" name="title" placeholder="Add title">
             </div>
             <div class="cardBtn_left">
-                <button id="cardBtn" type="button">Event</button>
+                <input type="button"  id="cardBtn_event" name="cardBtn_event" value="Event" 
+                onclick= 'document.getElementById("card_input").elements.namedItem("event").value = true;
+                          document.getElementById("card_input").elements.namedItem("note").value = false'>
+
+                <input type="hidden" id="event" name="event" value=true>
             </div>
             <div class="cardBtn_right">
-                <button id="cardBtn" type="button">Note</button>
-            </div>
-            <div class="form-row show-inputbtns">
-                <input type="date" data-date-inline-picker="false" data-date-open-on-focus="true" />
+                <input type="button" id="cardBtn_note" name="cardBtn_note" value="Note" 
+                onclick= 'document.getElementById("card_input").elements.namedItem("event").value = false;
+                          document.getElementById("card_input").elements.namedItem("note").value = true'>
+                <input type="hidden" id="note" name="note" value=false>
             </div>
             <div>
-                <input type="time" value="00:00:00" step="1800">
+                <input type="date" id="date" name="date" data-date-inline-picker="false"
+                    data-date-open-on-focus="true" />
             </div>
-            <div> <textarea name="message" rows="10" cols="30" placeholder="Add description"></textarea></div>
-            <div><input type="submit" value="Submit"></div>
+            <div>
+                <input type="time" id="time" name="time" value="00:00:00" step="1800">
+            </div>
+            <div> <textarea name="description" id="description" rows="10" cols="30"
+                    placeholder="Add description"></textarea></div>
+            <div>
+                    <select id="tag" name="tag">
+                            <option value="tasks">Tasks</option>
+                            <option value="work">Work</option>
+                            <option value="appointments">Appointments</option>
+                            <option value="occasion">Occasion</option>
+                            <option value="notes">Notes</option>
+                          </select>
+            </div>
+            <div><input type="submit" value="submit"></div>
         </form>
     </div>
 </body>
