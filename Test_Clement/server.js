@@ -10,7 +10,6 @@ var app = express();
 var myParser = require("body-parser");
 var session = require('express-session');
 var moment = require("moment"); //Need this in the other server.
-var session = require('express-session');
 
 app.use(session({ secret: "ITM352 rocks!" }));
 app.use(myParser.urlencoded({ extended: true }));
@@ -20,7 +19,7 @@ var filename = 'user_datatest.json' // Set variable filename to reference user_d
 
 if (fs.existsSync(filename)) { //check to see if file exists
     stats = fs.statSync(filename);
-    console.log(filename + ' has ' + stats.size + ' characters');
+    // console.log(filename + ' has ' + stats.size + ' characters');
     raw_data = fs.readFileSync(filename, 'utf-8')
     var users_reg_data = JSON.parse(raw_data); // variable users_reg_data = users registration data
     //console.log(users_reg_data);
@@ -138,6 +137,7 @@ app.post("/register", function (request, response) {
     else {
         response.redirect('registration.html');
     }
+});
 //Card Registration Code - Clement Li
 
 app.post("/card_registered", function (request, response) {
@@ -250,4 +250,3 @@ app.listen(8080, () => console.log(`listening on port 8080`));
 
 //https://stackoverflow.com/questions/27812639/display-alert-message-in-browser-using-node-js
 //https://www.webucator.com/tutorial/learn-ajax/intro-ajax-the-nodejs-server.cfm
- });
