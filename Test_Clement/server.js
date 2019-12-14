@@ -9,6 +9,7 @@ var express = require('express');
 var app = express();
 var myParser = require("body-parser");
 var session = require('express-session');
+var moment = require("moment"); //Need this in the other server.
 
 app.use(session({ secret: "ITM352 rocks!" }));
 app.use(myParser.urlencoded({ extended: true }));
@@ -172,21 +173,75 @@ app.post("/card_registered", function (request, response) {
 
 // Make an username input for all the pages for now. 
 
-//console.log(users_reg_data.tester.tasks[0])
+//console.log(users_reg_data.tester.tasks[1])
 //console.log(users_reg_data.tester.tasks[0].title)
-console.log(users_reg_data.tester.tasks.length)
+//console.log(users_reg_data.tester.tasks.length)
 
-for (var i = 0; i < users_reg_data.tester.tasks.length; i++) {
-    var test = users_reg_data.tester.tasks[i];
-    //for (var j = 0; j < test.length; j++) {
-       // var version = test[j];
-    //}
-}
-
-console.log(test)
+var userCardData = users_reg_data.tester.tasks
 
 
+const EqualNote = userCardData.filter(YESnote => YESnote.note === true)
+//Get all data that is type: note
 
+const EqualEvent = userCardData.filter(YESevent => YESevent.event === true)
+//Get all data that is type: event
+
+//Checking for today's date
+
+var m = moment();
+var string = `${m.toISOString()}`
+today = new Date(string)
+var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+const EqualToday = userCardData.filter(YEStoday => YEStoday.date <= date )
+const sortToday = EqualToday.sort((a, b) => (a.date > b.date || a.time > b.time ? 1 : -1));
+//Checks which data is equal to today or past it
+//console.log(EqualToday)
+
+//Next is Tomorrow: Checking for tomorrow from current date
+
+var m2 = moment();
+var a = m2.add(1, "days")
+var stringone = `${a.toISOString()}`
+thisTmrrw = new Date(stringone)
+var tomorrow = thisTmrrw.getFullYear()+'-'+(thisTmrrw.getMonth()+1)+'-'+thisTmrrw.getDate();
+const EqualTomorrow = userCardData.filter(YESTmrrw=> date < YESTmrrw.date && YESTmrrw.date === tomorrow )
+const sortTomorrow = EqualTomorrow.sort((a, b) => (a.date > b.date || a.time > b.time ? 1 : -1));
+
+//console.log(EqualTomorrow)
+//Next is Week: Checking for week from current date
+
+var m3 = moment();
+var b = m3.add(1, "weeks")
+var stringtwo = `${b.toISOString()}`
+thisWeek = new Date(stringtwo)
+var week = thisWeek.getFullYear()+'-'+(thisWeek.getMonth()+1)+'-'+thisWeek.getDate();
+const EqualWeek = userCardData.filter(YESweek => tomorrow < YESweek.date && YESweek.date <= week )
+const sortWeek = EqualWeek.sort((a, b) => (a.date > b.date || a.time > b.time ? 1 : -1));
+
+//console.log(EqualWeek)
+//Next is Month: Checking for month from current date
+
+var m4 = moment();
+var c = m3.add(1, "months")
+var stringthree = `${c.toISOString()}`
+thisMonth = new Date(stringthree)
+var month = thisMonth.getFullYear()+'-'+(thisMonth.getMonth()+1)+'-'+thisMonth.getDate();
+const EqualMonth = userCardData.filter(YESmonth => week < YESmonth.date && YESmonth.date <= month)
+const sortMonth = EqualMonth.sort((a, b) => (a.date > b.date || a.time > b.time ? 1 : -1));
+//const sortTime = sortAges.sort((a, b) => (a.time > b.time ? 1 : -1));
+
+//console.log(sortMonth)
+//Next is Year: Checking for year from current date
+
+/*var m5 = moment();
+var d = m4.add(1, "years")
+var stringfour = `${d.toISOString()}`
+thisYear = new Date(stringfour)
+var year = thisYear.getFullYear()+'-'+(thisYear.getMonth()+1)+'-'+thisYear.getDate();*/
+const EqualYear = userCardData.filter(YESyear => month < YESyear.date)
+const sortYear = EqualYear.sort((a, b) => (a.date > b.date || a.time > b.time ? 1 : -1));
+
+//console.log(EqualYear)
 
 // look for files in the "public" folder and listen on port 8080
 app.use(express.static('./public'));
