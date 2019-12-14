@@ -161,6 +161,8 @@ app.post("/card_registered", function (request, response) {
 
 });
 
+
+//---------------------------------------------------------------------------------------------------------------------------------------
 /*This is where the magic happens: We figure out what
  - Cards belong to today, tomorrow, this week, etc.
  - Organize by time
@@ -169,7 +171,7 @@ app.post("/card_registered", function (request, response) {
            - Compare times for all the arrays
        - Example: Fetching all the same product types
  - Organize by tag
- - Have one for all */
+ */
 
 
 // Make an username input for all the pages for now. 
@@ -229,9 +231,8 @@ thisMonth = new Date(stringthree)
 var month = thisMonth.getFullYear()+'-'+(thisMonth.getMonth()+1)+'-'+thisMonth.getDate();
 const EqualMonth = userCardData.filter(YESmonth => week < YESmonth.date && YESmonth.date <= month)
 const sortMonth = EqualMonth.sort((a, b) => (a.date > b.date || a.time > b.time ? 1 : -1));
-//const sortTime = sortAges.sort((a, b) => (a.time > b.time ? 1 : -1));
 
-console.log(sortMonth)
+//console.log(sortMonth)
 //Next is Year: Checking for year from current date
 
 /*var m5 = moment();
@@ -243,6 +244,36 @@ const EqualYear = userCardData.filter(YESyear => month < YESyear.date)
 const sortYear = EqualYear.sort((a, b) => (a.date > b.date || a.time > b.time ? 1 : -1));
 
 //console.log(EqualYear)
+
+//This is where we begin to respond to requests that the client wants
+//---------------------------------------------------------------------------------------------------------------------------------------
+
+app.get('/getToday', function(req, res) {
+    res.send(sortToday);
+});
+
+app.get('/getTomorrow', function(req, res) {
+    res.send(sortTomorrow);
+});
+
+app.get('/getWeek', function(req, res) {
+    res.send(sortWeek);
+});
+
+app.get('/getMonth', function(req, res) {
+    res.send(sortMonth);
+});
+
+app.get('/getYear', function(req, res) {
+    res.send(sortYear);
+});
+
+app.get('/getNotes', function(req, res) {
+    res.send(EqualNote);
+    console.log("Request Sent!")
+});
+
+
 
 // look for files in the "public" folder and listen on port 8080
 app.use(express.static('./public'));
