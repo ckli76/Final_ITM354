@@ -52,10 +52,6 @@ app.post("/login", function (request, response) {
     }
 }
 );
-
-app.get('/use_session', function(request,response) {
-    response.send(`Your session ID is: ${request.sessionID}`); //this will give us a session id, it will be different when we reload the server
-});
     app.post("/register", function (request, response) {
         regData = request.body;
         console.log("Got the registration request");
