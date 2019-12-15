@@ -48,205 +48,229 @@ app.post("/login", function (request, response) {
 
     } else {
         msg = `<html><script>if(!alert("username not found")) document.location = 'login.html'; </script></html>`;
-            response.send(msg);
+        response.send(msg);
     }
 }
 );
 
-app.post("/register", function (request, response) {
-    regData = request.body;
-    console.log("Got the registration request");
-    console.log(request.body);
-    // process a simple register form
+app.post("/login", function (request, response) {
+    // Process login form POST and redirect to logged in page if ok, back to login page if not
+    console.log(user_product_quantities);
+    the_username = request.body.username;
+    if (typeof users_reg_data[the_username] != 'undefined') {
+        if (users_reg_data[the_username].passwors == request.body.password) {
+            //make the quesry string of prod quant needed for invoice
+            theQuantQuerystring = qs.stringify(user_product_quantities);
+            //response.redirect('/invoice.html?' + theQuanQuerystring);
 
-    validerrors = false;
+            if (typeof request.session.last_login != 'undefined') {
+                var msg = `You last logged in at ${request.session.last_login}`;
+                var now = new Date();
+            }
+            request.session.last_login = now;
+            response.send(`${msg}<BR>${the_username} logged in at ${now}`);
+        } else {
+            response.redirect('/login');
+        }
+    }
+});
 
-    username_input = regData.username.toLowerCase();
-    password_input = regData.password;
-    REpassword_input = regData.repeat_password;
-    email_input = regData.email;
+app.get('/use_session', function(request,response) {
+    response.send(`Your session ID is: ${request.sessionID}`); //this will give us a session id, it will be different when we reload the server
+});
+    app.post("/register", function (request, response) {
+        regData = request.body;
+        console.log("Got the registration request");
+        console.log(request.body);
+        // process a simple register form
 
-    //Validate username
-    var letters = /^[0-9a-zA-Z]+$/;
+        validerrors = false;
 
-    if (typeof users_reg_data[username_input] != 'undefined') {
-        validerrors = true
-    };
-    if (username_input.length < 1 && username_input.length > -1) {
-        validerrors = true
-    };
-    if (username_input.length > 0 && username_input.length < 4) {
-        validerrors = true
-    };
-    if (username_input.length > 15) {
-        validerrors = true
-    };
-    if (username_input.match(letters)) { }
-    else {
-        validerrors = true
-    };
+        username_input = regData.username.toLowerCase();
+        password_input = regData.password;
+        REpassword_input = regData.repeat_password;
+        email_input = regData.email;
 
-    //Validate Password
+        //Validate username
+        var letters = /^[0-9a-zA-Z]+$/;
 
-    if (password_input.length < 1 && password_input.length > -1) {
-        validerrors = true
-    };
-    if (password_input.length > 0 && password_input.length < 5) {
-        validerrors = true
-    };
+        if (typeof users_reg_data[username_input] != 'undefined') {
+            validerrors = true
+        };
+        if (username_input.length < 1 && username_input.length > -1) {
+            validerrors = true
+        };
+        if (username_input.length > 0 && username_input.length < 4) {
+            validerrors = true
+        };
+        if (username_input.length > 15) {
+            validerrors = true
+        };
+        if (username_input.match(letters)) { }
+        else {
+            validerrors = true
+        };
 
-    //Validate Re-Entered Password
+        //Validate Password
 
-    if (REpassword_input.length < 1 && REpassword_input.length > -1) {
-        validerrors = true
-    };
-    if (password_input != REpassword_input) {
-        validerrors = true
-    };
+        if (password_input.length < 1 && password_input.length > -1) {
+            validerrors = true
+        };
+        if (password_input.length > 0 && password_input.length < 5) {
+            validerrors = true
+        };
 
-    //Validate Email
+        //Validate Re-Entered Password
 
-    var email_letters = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+        if (REpassword_input.length < 1 && REpassword_input.length > -1) {
+            validerrors = true
+        };
+        if (password_input != REpassword_input) {
+            validerrors = true
+        };
 
-    if (email_input.length < 1 && email_input.length > -1) {
-        validerrors = true
-    };
+        //Validate Email
 
-    if (email_input.match(email_letters)) { }
-    else { validerrors = true };
+        var email_letters = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
-    username_input = regData.username;
+        if (email_input.length < 1 && email_input.length > -1) {
+            validerrors = true
+        };
 
-    if (validerrors == false) {
-        users_reg_data[username_input] = {};
-        users_reg_data[username_input].name = username_input;
-        users_reg_data[username_input].password = regData.password;
-        users_reg_data[username_input].email = regData.email;
+        if (email_input.match(email_letters)) { }
+        else { validerrors = true };
 
-        console.log(username_input)
+        username_input = regData.username;
 
-        var output_data = JSON.stringify(users_reg_data);
-        fs.writeFileSync(filename, JSON.stringify(users_reg_data));
+        if (validerrors == false) {
+            users_reg_data[username_input] = {};
+            users_reg_data[username_input].name = username_input;
+            users_reg_data[username_input].password = regData.password;
+            users_reg_data[username_input].email = regData.email;
 
-        console.log(output_data)
-        response.cookie(`${username_input}`, `${request.sessionID}`, { maxAge: 1000000000000000 }).redirect('homepage.html'); //session f
-        msg = `<html><script>if(!alert("Welcome" + ${username_input}) document.location = 'homepage.html'; </script></html>`;
+            console.log(username_input)
+
+            var output_data = JSON.stringify(users_reg_data);
+            fs.writeFileSync(filename, JSON.stringify(users_reg_data));
+
+            console.log(output_data)
+            response.cookie(`${username_input}`, `${request.sessionID}`, { maxAge: 1000000000000000 }).redirect('homepage.html'); //session f
+            msg = `<html><script>if(!alert("Welcome" + ${username_input}) document.location = 'homepage.html'; </script></html>`;
             response.send(msg); //to send an alert and redirect after registration
-        //response.send(`${username_input} registered!`);
-    }
-    else {
-        response.redirect('registration.html');
-    }
-});
+            //response.send(`${username_input} registered!`);
+        }
+        else {
+            response.redirect('registration.html');
+        }
+    });
+    //Card Registration Code - Clement Li
 
-//Card Registration Code - Clement Li
+    app.post("/card_registered", function (request, response) {
+        cardData = request.body; //card data is set as variable
+        console.log("Got the card registration request"); //Lets admin know grabbing the registration data was a success
+        console.log(request.body); //Lets admin see what was inputted in all the fields
+        // process a card request
 
-app.post("/card_registered", function (request, response) {
-    cardData = request.body; //card data is set as variable
-    console.log("Got the card registration request"); //Lets admin know grabbing the registration data was a success
-    console.log(request.body); //Lets admin see what was inputted in all the fields
-    // process a card request
+        username_data = cardData.username;
+        title_data = cardData.title;
+        event_data = cardData.event;
+        note_data = cardData.note
+        date_data = cardData.date;
+        time_data = cardData.time;
+        description_data = cardData.description;
+        tag_data = cardData.tag
 
-    username_data = cardData.username;
-    title_data = cardData.title;
-    event_data = cardData.event;
-    note_data = cardData.note
-    date_data = cardData.date;
-    time_data = cardData.time;
-    description_data = cardData.description;
-    tag_data = cardData.tag
-
-    //Figure out what username, figure out what tag. Than input the data into the JSON
-
-
-});
-
-/*This is where the magic happens: We figure out what
- - Cards belong to today, tomorrow, this week, etc.
- - Organize by time
-       - The most essential is the date & the time
-           - Compare vs a function that records today vs date
-           - Compare times for all the arrays
-       - Example: Fetching all the same product types
- - Organize by tag
- - Have one for all */
+        //Figure out what username, figure out what tag. Than input the data into the JSON
 
 
-// Make an username input for all the pages for now. 
+    });
 
-//console.log(users_reg_data.tester.tasks[1])
-//console.log(users_reg_data.tester.tasks[0].title)
-//console.log(users_reg_data.tester.tasks.length)
+    /*This is where the magic happens: We figure out what
+     - Cards belong to today, tomorrow, this week, etc.
+     - Organize by time
+           - The most essential is the date & the time
+               - Compare vs a function that records today vs date
+               - Compare times for all the arrays
+           - Example: Fetching all the same product types
+     - Organize by tag
+     - Have one for all */
 
-var userCardData = users_reg_data.tester.tasks
+
+    // Make an username input for all the pages for now. 
+
+    //console.log(users_reg_data.tester.tasks[1])
+    //console.log(users_reg_data.tester.tasks[0].title)
+    //console.log(users_reg_data.tester.tasks.length)
+
+    var userCardData = users_reg_data.tester.tasks
 
 
-const EqualNote = userCardData.filter(YESnote => YESnote.note === true)
-//Get all data that is type: note
+    const EqualNote = userCardData.filter(YESnote => YESnote.note === true)
+    //Get all data that is type: note
 
-const EqualEvent = userCardData.filter(YESevent => YESevent.event === true)
-//Get all data that is type: event
+    const EqualEvent = userCardData.filter(YESevent => YESevent.event === true)
+    //Get all data that is type: event
 
-//Checking for today's date
+    //Checking for today's date
 
-var m = moment();
-var string = `${m.toISOString()}`
-today = new Date(string)
-var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-const EqualToday = userCardData.filter(YEStoday => YEStoday.date <= date )
-const sortToday = EqualToday.sort((a, b) => (a.date > b.date || a.time > b.time ? 1 : -1));
-//Checks which data is equal to today or past it
-//console.log(EqualToday)
+    var m = moment();
+    var string = `${m.toISOString()}`
+    today = new Date(string)
+    var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+    const EqualToday = userCardData.filter(YEStoday => YEStoday.date <= date)
+    const sortToday = EqualToday.sort((a, b) => (a.date > b.date || a.time > b.time ? 1 : -1));
+    //Checks which data is equal to today or past it
+    //console.log(EqualToday)
 
-//Next is Tomorrow: Checking for tomorrow from current date
+    //Next is Tomorrow: Checking for tomorrow from current date
 
-var m2 = moment();
-var a = m2.add(1, "days")
-var stringone = `${a.toISOString()}`
-thisTmrrw = new Date(stringone)
-var tomorrow = thisTmrrw.getFullYear()+'-'+(thisTmrrw.getMonth()+1)+'-'+thisTmrrw.getDate();
-const EqualTomorrow = userCardData.filter(YESTmrrw=> date < YESTmrrw.date && YESTmrrw.date === tomorrow )
-const sortTomorrow = EqualTomorrow.sort((a, b) => (a.date > b.date || a.time > b.time ? 1 : -1));
+    var m2 = moment();
+    var a = m2.add(1, "days")
+    var stringone = `${a.toISOString()}`
+    thisTmrrw = new Date(stringone)
+    var tomorrow = thisTmrrw.getFullYear() + '-' + (thisTmrrw.getMonth() + 1) + '-' + thisTmrrw.getDate();
+    const EqualTomorrow = userCardData.filter(YESTmrrw => date < YESTmrrw.date && YESTmrrw.date === tomorrow)
+    const sortTomorrow = EqualTomorrow.sort((a, b) => (a.date > b.date || a.time > b.time ? 1 : -1));
 
-//console.log(EqualTomorrow)
-//Next is Week: Checking for week from current date
+    //console.log(EqualTomorrow)
+    //Next is Week: Checking for week from current date
 
-var m3 = moment();
-var b = m3.add(1, "weeks")
-var stringtwo = `${b.toISOString()}`
-thisWeek = new Date(stringtwo)
-var week = thisWeek.getFullYear()+'-'+(thisWeek.getMonth()+1)+'-'+thisWeek.getDate();
-const EqualWeek = userCardData.filter(YESweek => tomorrow < YESweek.date && YESweek.date <= week )
-const sortWeek = EqualWeek.sort((a, b) => (a.date > b.date || a.time > b.time ? 1 : -1));
+    var m3 = moment();
+    var b = m3.add(1, "weeks")
+    var stringtwo = `${b.toISOString()}`
+    thisWeek = new Date(stringtwo)
+    var week = thisWeek.getFullYear() + '-' + (thisWeek.getMonth() + 1) + '-' + thisWeek.getDate();
+    const EqualWeek = userCardData.filter(YESweek => tomorrow < YESweek.date && YESweek.date <= week)
+    const sortWeek = EqualWeek.sort((a, b) => (a.date > b.date || a.time > b.time ? 1 : -1));
 
-//console.log(EqualWeek)
-//Next is Month: Checking for month from current date
+    //console.log(EqualWeek)
+    //Next is Month: Checking for month from current date
 
-var m4 = moment();
-var c = m3.add(1, "months")
-var stringthree = `${c.toISOString()}`
-thisMonth = new Date(stringthree)
-var month = thisMonth.getFullYear()+'-'+(thisMonth.getMonth()+1)+'-'+thisMonth.getDate();
-const EqualMonth = userCardData.filter(YESmonth => week < YESmonth.date && YESmonth.date <= month)
-const sortMonth = EqualMonth.sort((a, b) => (a.date > b.date || a.time > b.time ? 1 : -1));
-//const sortTime = sortAges.sort((a, b) => (a.time > b.time ? 1 : -1));
+    var m4 = moment();
+    var c = m3.add(1, "months")
+    var stringthree = `${c.toISOString()}`
+    thisMonth = new Date(stringthree)
+    var month = thisMonth.getFullYear() + '-' + (thisMonth.getMonth() + 1) + '-' + thisMonth.getDate();
+    const EqualMonth = userCardData.filter(YESmonth => week < YESmonth.date && YESmonth.date <= month)
+    const sortMonth = EqualMonth.sort((a, b) => (a.date > b.date || a.time > b.time ? 1 : -1));
+    //const sortTime = sortAges.sort((a, b) => (a.time > b.time ? 1 : -1));
 
-//console.log(sortMonth)
-//Next is Year: Checking for year from current date
+    //console.log(sortMonth)
+    //Next is Year: Checking for year from current date
 
-/*var m5 = moment();
-var d = m4.add(1, "years")
-var stringfour = `${d.toISOString()}`
-thisYear = new Date(stringfour)
-var year = thisYear.getFullYear()+'-'+(thisYear.getMonth()+1)+'-'+thisYear.getDate();*/
-const EqualYear = userCardData.filter(YESyear => month < YESyear.date)
-const sortYear = EqualYear.sort((a, b) => (a.date > b.date || a.time > b.time ? 1 : -1));
+    /*var m5 = moment();
+    var d = m4.add(1, "years")
+    var stringfour = `${d.toISOString()}`
+    thisYear = new Date(stringfour)
+    var year = thisYear.getFullYear()+'-'+(thisYear.getMonth()+1)+'-'+thisYear.getDate();*/
+    const EqualYear = userCardData.filter(YESyear => month < YESyear.date)
+    const sortYear = EqualYear.sort((a, b) => (a.date > b.date || a.time > b.time ? 1 : -1));
 
-//console.log(EqualYear)
+    //console.log(EqualYear)
 
-// look for files in the "public" folder and listen on port 8080
-app.use(express.static('./public'));
-app.listen(8080, () => console.log(`listening on port 8080`));
+    // look for files in the "public" folder and listen on port 8080
+    app.use(express.static('./public'));
+    app.listen(8080, () => console.log(`listening on port 8080`));
 
 //https://stackoverflow.com/questions/27812639/display-alert-message-in-browser-using-node-js
 //https://www.webucator.com/tutorial/learn-ajax/intro-ajax-the-nodejs-server.cfm
