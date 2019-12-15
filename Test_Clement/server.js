@@ -53,28 +53,6 @@ app.post("/login", function (request, response) {
 }
 );
 
-app.post("/login", function (request, response) {
-    // Process login form POST and redirect to logged in page if ok, back to login page if not
-    console.log(user_product_quantities);
-    the_username = request.body.username;
-    if (typeof users_reg_data[the_username] != 'undefined') {
-        if (users_reg_data[the_username].passwors == request.body.password) {
-            //make the quesry string of prod quant needed for invoice
-            theQuantQuerystring = qs.stringify(user_product_quantities);
-            //response.redirect('/invoice.html?' + theQuanQuerystring);
-
-            if (typeof request.session.last_login != 'undefined') {
-                var msg = `You last logged in at ${request.session.last_login}`;
-                var now = new Date();
-            }
-            request.session.last_login = now;
-            response.send(`${msg}<BR>${the_username} logged in at ${now}`);
-        } else {
-            response.redirect('/login');
-        }
-    }
-});
-
 app.get('/use_session', function(request,response) {
     response.send(`Your session ID is: ${request.sessionID}`); //this will give us a session id, it will be different when we reload the server
 });
