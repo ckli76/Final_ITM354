@@ -1,0 +1,11 @@
+/* General */ 
+body {
+    color: white;
+    width: 800 px;
+    margin: 0 auto;
+    background: black;
+    text-align: center;
+}
+h1 {
+    color: grey
+}
