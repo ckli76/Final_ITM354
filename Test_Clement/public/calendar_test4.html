@@ -13,8 +13,8 @@
     <script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/timegrid/main.js'></script>
     <script src="https://code.jquery.com/jquery-3.4.1.js"
         integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
-        <script src="https://momentjs.com/downloads/moment.js"></script>
-    <meta charset='utf-8' />
+    <script src="https://momentjs.com/downloads/moment.js"></script>
+        <meta charset='utf-8' />
 
     <!--Styling-->
     <style>
@@ -35,18 +35,25 @@
     <!--Script Begins-->
     <script>
         // --- Script to get the event inputs from server (Sending JSON)
-        /*var test = [];
+        var CardData = [];
+        $.CardDataJSON(CardData)
+
         $.get('/getAllCards', function (data) {
-            console.log(data)
+            //console.log(data)
             for (var i = 0; i < data.length; i++) {
                 for (var j = 0; j < data[i].length; j++)
+                    
+                var dateTime = moment(`${data[i][j].date} ${data[i][j].time}`,'YYYY-MM-DD HH:mm:ss').format();
+                
+                console.log(dateTime)
+                
                     test.push({
                         title: data[i][j].title,
                         start: data[i][j].date,
                     });
                 }}); 
 
-                console.log(test) */
+                //console.log(CardData)
 
                 // --- Script for the calendar ---
                 document.addEventListener('DOMContentLoaded', function () {
@@ -59,32 +66,7 @@
                             center: 'title',
                             right: 'dayGridMonth,timeGridWeek,timeGridDay'
                         },
-                        editable: true,
-                        eventLimit: true, // when too many events in a day, show the popover
-
-                        events: function (start, callback) {
-                            $.ajax({
-                                url: "/getAllCards",
-                                type: 'GET',
-                            }).done(function (response) {
-                                var events = [];
-                                //console.log(response)
-                                for(var i = 0; i < response.length; i++) {
-                                    for(var j = 0; j < response[i].length; j++) {
-                                        var item = response[i][j];
-                                        var dateTime = moment(`${item["date"]} ${item["time"]}`,'YYYY-MM-DD hh:mm').format();
-                                        
-                                        events.push({
-                                            title: item["title"],
-                                            start: dateTime
-                                        });
-                                    }
-                                }
-                                console.log(events)
-                                callback(events)
-                            });
-                        },
-                        
+                        events: test
                     })
 
                     calendar.render();
@@ -94,14 +76,7 @@
 </head>
 
 <body>
-    <div class="dropdown">
-        <button onclick="myFunction()" class="dropbtn">Dropdown</button>
-        <div id="myDropdown" class="dropdown-content">
-            <a href="index.html">Home</a>
-            <a href="card_index.html">Index</a>
-            <a href="calendar.html">Calendar</a>
-        </div>
-    </div>
+
     <div id='calendar'></div>
 
 </body>

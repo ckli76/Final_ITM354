@@ -1,3 +1,13 @@
+/*
+- Index need to be able to sort by tag
+- Delete the cards from JSON
+(might have to make a delete page if necessary)
+- Make new cards into JSON (index page working at least
+- Calendar must at least load the data 
+(No need worry about the delete or new cards)
+(We're going to force the users to delete or make new cards in the index)
+*/
+
 var express = require('express');
 var app = express();
 var cookieParser = require('cookie-parser');
@@ -15,11 +25,11 @@ app.use(session({ secret: "ITM352 rocks!" }));
 app.use(myParser.urlencoded({ extended: true }));
 
 //Assignment 2 Code
-var filename = 'user_datatest.json' // Set variable filename to reference user_data.json
+var filename = 'user_data.json' // Set variable filename to reference user_data.json
 
 if (fs.existsSync(filename)) { //check to see if file exists
     stats = fs.statSync(filename);
-    // console.log(filename + ' has ' + stats.size + ' characters');
+    console.log(filename + ' has ' + stats.size + ' characters');
     raw_data = fs.readFileSync(filename, 'utf-8')
     var users_reg_data = JSON.parse(raw_data); // variable users_reg_data = users registration data
     //console.log(users_reg_data);
@@ -48,7 +58,7 @@ app.post("/login", function (request, response) {
 
     } else {
         msg = `<html><script>if(!alert("username not found")) document.location = 'login.html'; </script></html>`;
-            response.send(msg);
+        response.send(msg);
     }
 }
 );
@@ -131,7 +141,7 @@ app.post("/register", function (request, response) {
         console.log(output_data)
         response.cookie(`${username_input}`, `${request.sessionID}`, { maxAge: 1000000000000000 }).redirect('homepage.html'); //session f
         msg = `<html><script>if(!alert("Welcome" + ${username_input}) document.location = 'homepage.html'; </script></html>`;
-            response.send(msg); //to send an alert and redirect after registration
+        response.send(msg); //to send an alert and redirect after registration
         //response.send(`${username_input} registered!`);
     }
     else {
@@ -143,22 +153,38 @@ app.post("/register", function (request, response) {
 app.post("/card_registered", function (request, response) {
     cardData = request.body; //card data is set as variable
     console.log("Got the card registration request"); //Lets admin know grabbing the registration data was a success
-    console.log(request.body); //Lets admin see what was inputted in all the fields
+    //console.log(request.body); //Lets admin see what was inputted in all the fields
     // process a card request
-
 
     username_data = cardData.username;
     title_data = cardData.title;
-    event_data = cardData.event;
-    note_data = cardData.note
+    event_data = JSON.parse(cardData.event);
+    note_data = JSON.parse(cardData.note);
     date_data = cardData.date;
     time_data = cardData.time;
     description_data = cardData.description;
     tag_data = cardData.tag
-
     //Figure out what username, figure out what tag. Than input the data into the JSON
 
+    var NewcardData = {
+        "title": title_data,
+        "event": event_data,
+        "note": note_data,
+        "date": date_data,
+        "time": time_data,
+        "description": description_data
+    }
 
+    if (typeof users_reg_data[username_data][tag_data] != 'undefined') {
+        users_reg_data[username_data][tag_data].push(NewcardData)
+        console.log(users_reg_data[username_data][tag_data])
+        console.log("Data has been proccessed!")
+    };
+
+    var writeFile = JSON.stringify(users_reg_data);
+    fs.writeFileSync(filename, JSON.stringify(users_reg_data));
+
+    response.redirect('/index.html');
 });
 
 
@@ -180,6 +206,12 @@ app.post("/card_registered", function (request, response) {
 //console.log(users_reg_data.tester.tasks[0].title)
 //console.log(users_reg_data.tester.tasks.length)
 
+app.put("/updateTag", function (request, response) {
+    testdata = request.body; //card data is set as variable
+    console.log(testdata);
+});
+
+
 var userCardData = users_reg_data.tester.tasks
 
 
@@ -194,8 +226,8 @@ const EqualEvent = userCardData.filter(YESevent => YESevent.event === true)
 var m = moment();
 var string = `${m.toISOString()}`
 today = new Date(string)
-var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-const EqualToday = userCardData.filter(YEStoday => YEStoday.date <= date )
+var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+const EqualToday = userCardData.filter(YEStoday => YEStoday.date <= date)
 const sortToday = EqualToday.sort((a, b) => (a.date > b.date || a.time > b.time ? 1 : -1));
 //Checks which data is equal to today or past it
 //console.log(EqualToday)
@@ -206,8 +238,8 @@ var m2 = moment();
 var a = m2.add(1, "days")
 var stringone = `${a.toISOString()}`
 thisTmrrw = new Date(stringone)
-var tomorrow = thisTmrrw.getFullYear()+'-'+(thisTmrrw.getMonth()+1)+'-'+thisTmrrw.getDate();
-const EqualTomorrow = userCardData.filter(YESTmrrw=> date < YESTmrrw.date && YESTmrrw.date === tomorrow )
+var tomorrow = thisTmrrw.getFullYear() + '-' + (thisTmrrw.getMonth() + 1) + '-' + thisTmrrw.getDate();
+const EqualTomorrow = userCardData.filter(YESTmrrw => date < YESTmrrw.date && YESTmrrw.date === tomorrow)
 const sortTomorrow = EqualTomorrow.sort((a, b) => (a.date > b.date || a.time > b.time ? 1 : -1));
 
 //console.log(EqualTomorrow)
@@ -217,8 +249,8 @@ var m3 = moment();
 var b = m3.add(1, "weeks")
 var stringtwo = `${b.toISOString()}`
 thisWeek = new Date(stringtwo)
-var week = thisWeek.getFullYear()+'-'+(thisWeek.getMonth()+1)+'-'+thisWeek.getDate();
-const EqualWeek = userCardData.filter(YESweek => tomorrow < YESweek.date && YESweek.date <= week )
+var week = thisWeek.getFullYear() + '-' + (thisWeek.getMonth() + 1) + '-' + thisWeek.getDate();
+const EqualWeek = userCardData.filter(YESweek => tomorrow < YESweek.date && YESweek.date <= week)
 const sortWeek = EqualWeek.sort((a, b) => (a.date > b.date || a.time > b.time ? 1 : -1));
 
 //console.log(EqualWeek)
@@ -228,7 +260,7 @@ var m4 = moment();
 var c = m3.add(1, "months")
 var stringthree = `${c.toISOString()}`
 thisMonth = new Date(stringthree)
-var month = thisMonth.getFullYear()+'-'+(thisMonth.getMonth()+1)+'-'+thisMonth.getDate();
+var month = thisMonth.getFullYear() + '-' + (thisMonth.getMonth() + 1) + '-' + thisMonth.getDate();
 const EqualMonth = userCardData.filter(YESmonth => week < YESmonth.date && YESmonth.date <= month)
 const sortMonth = EqualMonth.sort((a, b) => (a.date > b.date || a.time > b.time ? 1 : -1));
 
@@ -248,32 +280,47 @@ const sortYear = EqualYear.sort((a, b) => (a.date > b.date || a.time > b.time ? 
 //This is where we begin to respond to requests that the client wants
 //---------------------------------------------------------------------------------------------------------------------------------------
 
-app.get('/getToday', function(req, res) {
+app.get('/getToday', function (req, res) {
     res.send(sortToday);
 });
 
-app.get('/getTomorrow', function(req, res) {
+app.get('/getTomorrow', function (req, res) {
     res.send(sortTomorrow);
 });
 
-app.get('/getWeek', function(req, res) {
+app.get('/getWeek', function (req, res) {
     res.send(sortWeek);
 });
 
-app.get('/getMonth', function(req, res) {
+app.get('/getMonth', function (req, res) {
     res.send(sortMonth);
 });
 
-app.get('/getYear', function(req, res) {
+app.get('/getYear', function (req, res) {
     res.send(sortYear);
 });
 
-app.get('/getNotes', function(req, res) {
+app.get('/getNotes', function (req, res) {
     res.send(EqualNote);
     console.log("Request Sent!")
 });
 
+var userCardTasks = users_reg_data.tester.tasks
+const TaskEvent = userCardTasks.filter(YESevent => YESevent.event === true)
+var userCardWork = users_reg_data.tester.work
+const WorkEvent = userCardWork.filter(YESevent => YESevent.event === true)
+var userCardAppointments = users_reg_data.tester.appointments
+const AppointEvent = userCardAppointments.filter(YESevent => YESevent.event === true)
+var userCardOccasion = users_reg_data.tester.occasion
+const OccasionEvent = userCardOccasion.filter(YESevent => YESevent.event === true)
 
+var userAllCards = [TaskEvent, WorkEvent, AppointEvent, OccasionEvent]
+//console.log(userAllCards)
+
+app.get('/getAllCards', function (req, res) {
+    res.send(userAllCards);
+    console.log("Sent all Cards!")
+});
 
 // look for files in the "public" folder and listen on port 8080
 app.use(express.static('./public'));
