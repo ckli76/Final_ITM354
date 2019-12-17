@@ -19,11 +19,7 @@ app.use(bodyParser.json());
 
 app.get('/products', function(req, res) {
     res.send({ products: products });
-});
-
-console.log(products)
-
-console.log ({ products: products })
+})
 
 app.post('/products', function(req, res) {
     var productName = req.body.name;

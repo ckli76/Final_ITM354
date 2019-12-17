@@ -66,16 +66,11 @@
         </div>
     </div>
     </div>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+
     <script src="https://code.jquery.com/jquery-3.4.1.js"
         integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-        crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-        crossorigin="anonymous"></script>
+
     <script>
         console.log(document.getElementById("DataType").value)
 
@@ -113,40 +108,63 @@
                 //Loop through and put the object data in right areas in this html code
                 for (var i = 0; i < data.length; i++) {
                     str += '\
-                        <div id="card">\
-                            <td class="title">' + data[i].title + '</td> <br>\
-                            <td class="title">' + data[i].date + ' ' + data[i].time + '</td> <br>\
-                            <td class="title">' + data[i].description + '</td> <br>\
-                        </div>\
                     <table>\
-                    <thead>\
+                        <tbody>\
+                        <thead>\
                         <tr>\
-                            <div>\
-                                <input type="text" id="title" name="title" value="' + data[i].title + '">\
-                            </div>\
+                            <td class="title">' + data[i].title + '</td>\
                         </tr>\
-                    </thead>\
-                    <tbody>\
+                        </thead>\
+                        <tbody>\
                         <tr>\
-                            <div>\
-                                <input type="date" id="date" name="date" data-date-inline-picker="false" data-date-open-on-focus="true" value="' + data[i].date + '" />\
-                            </div>\
+                            <td class="title">' + data[i].date + ' ' + data[i].time + '</td>\
                         </tr>\
+                        </tbody>\
+                        <tfoot>\
                         <tr>\
-                            <div>\
-                                <input type="time" id="time" name="time" value="' + data[i].time + '" step="1800">\
-                            </div>\
+                            <td class="title">' + data[i].description + '</td>\
                         </tr>\
-                    </tbody>\
-                    <tfoot>\
-                        <tr>\
-                            <div> <textarea name="description" id="description" rows="10" cols="30">' + data[i].description + '</textarea></div>\
-                        </tr>\
-                    </tfoot>\
-                    </table>\
-                        <button class="update-button">UPDATE</button>\
-                        <button class="delete-button">DELETE</button>\
-                        '};
+                        </tfoot>\
+                        </table>\
+                    <button class="update-button">UPDATE</button>\
+                    <button class="delete-button">DELETE</button>\
+                    '};
+
+                //data[i].date + ' ' + data[i].time
+                //data[i].description
+                /*
+        <div>
+<input type="text" id="title" name="title" placeholder="Add title">
+</div>
+<div class="cardBtn_left">
+<input type="button"  id="cardBtn_event" name="cardBtn_event" value="Event" 
+onclick= 'document.getElementById("card_input").elements.namedItem("event").value = true;
+      document.getElementById("card_input").elements.namedItem("note").value = false'>
+<input type="hidden" id="event" name="event" value=true>
+</div>
+<div class="cardBtn_right">
+<input type="button" id="cardBtn_note" name="cardBtn_note" value="Note" 
+onclick= 'document.getElementById("card_input").elements.namedItem("event").value = false;
+      document.getElementById("card_input").elements.namedItem("note").value = true'>
+<input type="hidden" id="note" name="note" value=false>
+</div>
+<div>
+<input type="date" id="date" name="date" data-date-inline-picker="false"
+data-date-open-on-focus="true" />
+</div>
+<div>
+<input type="time" id="time" name="time" value="00:00:00" step="1800">
+</div>
+<div> <textarea name="description" id="description" rows="10" cols="30"
+placeholder="Add description"></textarea></div>
+*/
+
+                /*'<div class ="item-details">' +
+                    '<strong>' + data[i].title + '<strong>' + '<br />' +
+                    'Time: ' + data[i].date + ' ' + data[i].time + '<br />' +
+                    'Note: ' + data[i].description + '<br />' +
+                    '<div>' + '<br />';*/
+
                 //Everytime press button, gotta empty it. Otherwise same data or new data will be appended to existing ones
                 $(".display-today").empty();
                 $(".display-today").append(str);
