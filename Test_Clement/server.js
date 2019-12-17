@@ -206,105 +206,142 @@ app.post("/card_registered", function (request, response) {
 //console.log(users_reg_data.tester.tasks[0].title)
 //console.log(users_reg_data.tester.tasks.length)
 
-app.put("/updateTag", function (request, response) {
-    testdata = request.body; //card data is set as variable
-    console.log(testdata);
-});
+function CardTagSort(TagName) {
+    var CardData = users_reg_data.tester[TagName]
+    return CardData;
+}
 
+//var CardTagName = CardTagSort('work');
 
-var userCardData = users_reg_data.tester.tasks
+function FindNote(CardTagName) {
+    const EqualNote = CardTagName.filter(YESnote => YESnote.note === true)
+    return EqualNote;
+    //Get all data that is type: note
+};
 
-
-const EqualNote = userCardData.filter(YESnote => YESnote.note === true)
-//Get all data that is type: note
-
-const EqualEvent = userCardData.filter(YESevent => YESevent.event === true)
-//Get all data that is type: event
-
-//Checking for today's date
+function FindEvent(CardTagName) {
+    const EqualEvent = CardTagName.filter(YESevent => YESevent.event === true)
+    return EqualEvent;
+    //Get all data that is type: event
+};
 
 var m = moment();
 var string = `${m.toISOString()}`
 today = new Date(string)
-var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
-const EqualToday = userCardData.filter(YEStoday => YEStoday.date <= date)
-const sortToday = EqualToday.sort((a, b) => (a.date > b.date || a.time > b.time ? 1 : -1));
-//Checks which data is equal to today or past it
-//console.log(EqualToday)
+var date = today.getFullYear() + '-' + ("0" + (today.getMonth() + 1)).slice(-2) + '-' + ("0" + today.getDate()).slice(-2);
 
-//Next is Tomorrow: Checking for tomorrow from current date
+function FindToday(CardTagName) {
+    //Checking for today's date
+    const EqualToday = CardTagName.filter(YEStoday => YEStoday.date <= date)
+    const sortToday = EqualToday.sort((a, b) => (a.date > b.date || a.time > b.time ? 1 : -1));
+    //Checks which data is equal to today or past it
+    //console.log(EqualToday)
+    return sortToday;
+};
 
 var m2 = moment();
 var a = m2.add(1, "days")
 var stringone = `${a.toISOString()}`
 thisTmrrw = new Date(stringone)
-var tomorrow = thisTmrrw.getFullYear() + '-' + (thisTmrrw.getMonth() + 1) + '-' + thisTmrrw.getDate();
-const EqualTomorrow = userCardData.filter(YESTmrrw => date < YESTmrrw.date && YESTmrrw.date === tomorrow)
-const sortTomorrow = EqualTomorrow.sort((a, b) => (a.date > b.date || a.time > b.time ? 1 : -1));
+var tomorrow = thisTmrrw.getFullYear() + '-' + ("0" + (thisTmrrw.getMonth() + 1)).slice(-2) + '-' + ("0" + thisTmrrw.getDate()).slice(-2);
 
-//console.log(EqualTomorrow)
-//Next is Week: Checking for week from current date
+function FindTomorrow(CardTagName) {
+    //Next is Tomorrow: Checking for tomorrow from current date
+    const EqualTomorrow = CardTagName.filter(YESTmrrw => date < YESTmrrw.date && YESTmrrw.date === tomorrow)
+    const sortTomorrow = EqualTomorrow.sort((a, b) => (a.date > b.date || a.time > b.time ? 1 : -1));
+    //console.log(EqualTomorrow)
+    return sortTomorrow;
+};
 
 var m3 = moment();
 var b = m3.add(1, "weeks")
 var stringtwo = `${b.toISOString()}`
 thisWeek = new Date(stringtwo)
-var week = thisWeek.getFullYear() + '-' + (thisWeek.getMonth() + 1) + '-' + thisWeek.getDate();
-const EqualWeek = userCardData.filter(YESweek => tomorrow < YESweek.date && YESweek.date <= week)
-const sortWeek = EqualWeek.sort((a, b) => (a.date > b.date || a.time > b.time ? 1 : -1));
+var week = thisWeek.getFullYear() + '-' + ("0" + (thisWeek.getMonth() + 1)).slice(-2) + '-' + ("0" + thisWeek.getDate()).slice(-2);
+//console.log(week)
 
-//console.log(EqualWeek)
-//Next is Month: Checking for month from current date
+function FindWeek(CardTagName) {
+    //Next is Week: Checking for week from current date
+    const EqualWeek = CardTagName.filter(YESweek => tomorrow < YESweek.date && YESweek.date <= week)
+    const sortWeek = EqualWeek.sort((a, b) => (a.date > b.date || a.time > b.time ? 1 : -1));
+    //console.log(EqualWeek)
+    return sortWeek;
+};
 
 var m4 = moment();
 var c = m3.add(1, "months")
 var stringthree = `${c.toISOString()}`
 thisMonth = new Date(stringthree)
-var month = thisMonth.getFullYear() + '-' + (thisMonth.getMonth() + 1) + '-' + thisMonth.getDate();
-const EqualMonth = userCardData.filter(YESmonth => week < YESmonth.date && YESmonth.date <= month)
-const sortMonth = EqualMonth.sort((a, b) => (a.date > b.date || a.time > b.time ? 1 : -1));
+var month = thisMonth.getFullYear() + '-' + ("0" + (thisMonth.getMonth() + 1)).slice(-2) + '-' + ("0" + thisMonth.getDate()).slice(-2);
+//console.log(month)
 
-//console.log(sortMonth)
-//Next is Year: Checking for year from current date
+function FindMonth(CardTagName) {
+    //Next is Month: Checking for month from current date
+    const EqualMonth = CardTagName.filter(YESmonth => week < YESmonth.date && YESmonth.date <= month)
+    const sortMonth = EqualMonth.sort((a, b) => (a.date > b.date || a.time > b.time ? 1 : -1));
+    //console.log(sortMonth)
+    return sortMonth;
+};
 
 /*var m5 = moment();
-var d = m4.add(1, "years")
-var stringfour = `${d.toISOString()}`
-thisYear = new Date(stringfour)
-var year = thisYear.getFullYear()+'-'+(thisYear.getMonth()+1)+'-'+thisYear.getDate();*/
-const EqualYear = userCardData.filter(YESyear => month < YESyear.date)
-const sortYear = EqualYear.sort((a, b) => (a.date > b.date || a.time > b.time ? 1 : -1));
+var d = m5.add(1, "years")
+var stringthree = `${d.toISOString()}`
+thisYear = new Date(stringthree)
+var year = thisYear.getFullYear() + '-' + ("0" + (thisYear.getMonth() + 1)).slice(-2) + '-' + ("0" + thisYear.getDate()).slice(-2); */
 
-//console.log(EqualYear)
+function FindYear(CardTagName) {
+    //Next is Year: Checking for year from current date
+    const EqualYear = CardTagName.filter(YESyear => month < YESyear.date)
+    const sortYear = EqualYear.sort((a, b) => (a.date > b.date || a.time > b.time ? 1 : -1));
+    return sortYear;
+};
 
-//This is where we begin to respond to requests that the client wants
+//This is where we begin to respond to requests in index page
 //---------------------------------------------------------------------------------------------------------------------------------------
+//console.log(FindYear(CardTagSort('tasks')))
 
-app.get('/getToday', function (req, res) {
-    res.send(sortToday);
+app.put('/getToday', function (req, res) {
+    //var CardTagName = CardTagSort(teatdata);
+    //console.log(req.body.value + 'today')
+    var response = FindToday(CardTagSort(req.body.value));
+    res.send(response);
 });
 
-app.get('/getTomorrow', function (req, res) {
-    res.send(sortTomorrow);
+app.put('/getTomorrow', function (req, res) {
+    //console.log(req.body.value + 'tomorrow')
+    var response = FindTomorrow(CardTagSort(req.body.value));
+    res.send(response);
 });
 
-app.get('/getWeek', function (req, res) {
-    res.send(sortWeek);
+app.put('/getWeek', function (req, res) {
+    //console.log(req.body.value + 'week')
+    var response = FindWeek(CardTagSort(req.body.value));
+    res.send(response);
 });
 
-app.get('/getMonth', function (req, res) {
-    res.send(sortMonth);
+app.put('/getMonth', function (req, res) {
+    //console.log(req.body.value + 'month')
+    var response = FindMonth(CardTagSort(req.body.value));
+    //console.log(response);
+    res.send(response);
 });
 
-app.get('/getYear', function (req, res) {
-    res.send(sortYear);
+app.put('/getYear', function (req, res) {
+    //console.log(req.body.value + 'year')
+    var response = FindYear(CardTagSort(req.body.value));
+    //console.log(response);
+    res.send(response);
 });
 
-app.get('/getNotes', function (req, res) {
-    res.send(EqualNote);
-    console.log("Request Sent!")
+app.put('/getNotes', function (req, res) {
+    //console.log(req.body.value + 'notes')
+    //console.log("Request Sent!")
+    var response = FindNote(CardTagSort(req.body.value));
+    res.send(response);
 });
 
+//This is where we begin to respond to the calendar
+//---------------------------------------------------------------------------------------------------------------------------------------
 var userCardTasks = users_reg_data.tester.tasks
 const TaskEvent = userCardTasks.filter(YESevent => YESevent.event === true)
 var userCardWork = users_reg_data.tester.work
@@ -313,13 +350,14 @@ var userCardAppointments = users_reg_data.tester.appointments
 const AppointEvent = userCardAppointments.filter(YESevent => YESevent.event === true)
 var userCardOccasion = users_reg_data.tester.occasion
 const OccasionEvent = userCardOccasion.filter(YESevent => YESevent.event === true)
+var userCardNotes = users_reg_data.tester.notes
 
 var userAllCards = [TaskEvent, WorkEvent, AppointEvent, OccasionEvent]
 //console.log(userAllCards)
 
 app.get('/getAllCards', function (req, res) {
     res.send(userAllCards);
-    console.log("Sent all Cards!")
+    //console.log("Sent all Cards!")
 });
 
 // look for files in the "public" folder and listen on port 8080
@@ -328,3 +366,11 @@ app.listen(8080, () => console.log(`listening on port 8080`));
 
 //https://stackoverflow.com/questions/27812639/display-alert-message-in-browser-using-node-js
 //https://www.webucator.com/tutorial/learn-ajax/intro-ajax-the-nodejs-server.cfm
+
+
+
+//Get the tag data through the get request.
+
+//Ex. Press the button and the hidden string value is sent.
+
+//Once I get the hidden string value... I can use the string value inside the function. So the function will be outside the request.
