@@ -53,6 +53,32 @@ app.post("/login", function (request, response) {
     }
 }
 );
+app.post("/logout", function (request, response) {
+    logoutData = request.body;
+    //console.log(logoutData);
+    // Process logout form POST and redirect to logged in page if ok, back to login page if not
+    the_username = logoutData.username;
+    the_password = logoutData.password;
+    //console.log(the_username)
+    //console.log(the_password)
+    if (typeof users_reg_data[the_username] != 'undefined') { //check if the username exists in the json data
+        if (users_reg_data[the_username].password == the_password) {
+            response.cookie(`${the_username}`, `${request.sessionID}`, { maxAge: 1000000000000000 }).redirect('homepage.html'); //session f
+            console.log(`${the_username}` + " has logged out successfully!");
+            //msg = `<html><script>if(!alert("Welcome " + ${the_username} + "last login time")) document.location = 'homepage.html'; </script></html>`;
+            //response.send(msg);
+            // alert('This is what an alert message looks like.');
+        } else {
+            msg = `<html><script>if(!alert("No logout submitted")) document.location = 'login.html'; </script></html>`;
+            response.send(msg);
+        }
+
+    } else {
+        msg = `<html><script>if(!alert("logout unsuccessfull")) document.location = 'login.html'; </script></html>`;
+        response.send(msg);
+    }
+}
+);
 app.post("/login", function (request, response) {
    if(req.session.page_views){
       req.session.page_views++;
