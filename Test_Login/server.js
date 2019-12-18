@@ -37,17 +37,18 @@ app.post("/login", function (request, response) {
     //console.log(the_password)
     if (typeof users_reg_data[the_username] != 'undefined') { //check if the username exists in the json data
         if (users_reg_data[the_username].password == the_password) {
+            response.cookie(`${the_username}`, `${request.sessionID}`, { maxAge: 1000000000000000 }).redirect('homepage.html'); //session f
             console.log(`${the_username}` + " has logged on successfully!");
             msg = `<html><script>if(!alert("Welcome " + ${the_username} + "last login time")) document.location = 'homepage.html'; </script></html>`;
             response.send(msg);
             // alert('This is what an alert message looks like.');
         } else {
-            msg = `<html><script>if(!alert("invalid password")) document.location = 'login.html'; </script></html>`;
+            msg = `<html><script>if(!alert("invalid password")) history.back(-1); </script></html>`;
             response.send(msg);
         }
 
     } else {
-        msg = `<html><script>if(!alert("username not found")) document.location = 'login.html'; </script></html>`;
+        msg = `<html><script>if(!alert("username not found")) history.back(-1); </script></html>`;
         response.send(msg);
     }
 }
