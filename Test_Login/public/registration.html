@@ -6,6 +6,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <script>
+
     function PWFunction() {
         var showPW = document.getElementById("PWInput")
         if (showPW.type === "password") {
@@ -77,7 +78,7 @@
         errors = []; // assume no errors at first
         if (q.length < 1 && q.length > -1) errors.push('Do not leave empty!'); { }
         if (q.match(password1) && q.length == password1.length) { }
-            else { errors.push('Passwords do not match!') };
+        else { errors.push('Passwords do not match!') };
         if (sendArrayBack) {
             return (errors);
         }
@@ -99,21 +100,21 @@
         errors = []; // assume no errors at first
         if (q.length < 1 && q.length > -1) errors.push('Do not leave empty!'); { }
         if (q.match(email_letters)) { }
-            else { errors.push('Valid email only!') }; // Check that it is an integer
+        else { errors.push('Valid email only!') }; // Check that it is an integer
         if (sendArrayBack) {
             return (errors);
         }
     }
 
     function checkEmail() {
-           errs = EmailError(basic_register.email_box.value, true);
-           if (errs.length > 0) {
-               email_box_message.innerHTML = errs.join(" | ");
-           }
-           else {
-               email_box_message.innerHTML = "&#10004;"
-           }
-       }
+        errs = EmailError(basic_register.email_box.value, true);
+        if (errs.length > 0) {
+            email_box_message.innerHTML = errs.join(" | ");
+        }
+        else {
+            email_box_message.innerHTML = "&#10004;"
+        }
+    }
 
 </script>
 
@@ -127,12 +128,13 @@
 <body>
     <form id="basic_registerID" name="basic_register" method="POST" action="/register">
         <input type="text" name="username" id="username_box" size="40" placeholder="enter username"
-            onkeyup="checkUserName();"><span id='username_box_message'></span><br />
+            onkeyup="checkUserName(); UsernameError();"><span id='username_box_message'></span><br />
         <input type="password" name="password" id="PWInput" size="40" placeholder="enter password"
-            onkeyup="checkPassword(); updatePassword(); REcheckPassword();"><span id='password_box_message'></span><br />
+            onkeyup="checkPassword(); updatePassword(); REcheckPassword();"><span
+            id='password_box_message'></span><br />
         <input type="password" name="repeat_password" id="PWrepeat" size="40" placeholder="enter password again"
             onkeyup="REcheckPassword();"><span id='REpassword_box_message'></span><br />
-        <input type="email" name="email" size="40" id="email_box" placeholder="enter email" 
+        <input type="email" name="email" size="40" id="email_box" placeholder="enter email"
             onkeyup="checkEmail();"><span id='email_box_message'></span><br />
         <input type="submit" value="Register" id="submit_register">
         <input type="checkbox" onclick="PWFunction(); PWrepeatFunction()">Show Password
