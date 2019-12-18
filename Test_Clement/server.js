@@ -38,7 +38,7 @@ app.post("/login", function (request, response) {
     if (typeof users_reg_data[the_username] != 'undefined') { //check if the username exists in the json data
         if (users_reg_data[the_username].password == the_password) {
             console.log(`${the_username}` + " has logged on successfully!");
-            msg = `<html><script>if(!alert("Welcome " + ${the_username})) document.location = 'homepage.html'; </script></html>`;
+            msg = `<html><script>if(!alert("Welcome " + ${the_username} + "last login time")) document.location = 'homepage.html'; </script></html>`;
             response.send(msg);
             // alert('This is what an alert message looks like.');
         } else {
@@ -52,6 +52,16 @@ app.post("/login", function (request, response) {
     }
 }
 );
+app.post("/login", function (request, response) {
+   if(req.session.page_views){
+      req.session.page_views++;
+      res.send("You visited this page " + req.session.page_views + " times");
+   } else {
+      req.session.page_views = 1;
+      res.send("Welcome to this page for the first time!");
+   }
+});
+
     app.post("/register", function (request, response) {
         regData = request.body;
         console.log("Got the registration request");
