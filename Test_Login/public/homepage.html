@@ -55,6 +55,18 @@
 </header>>
 
 <body>
+    <script>
+    var currentUser = Parse.User.current();
+        if (currentUser) {
+            Parse.User.logout();
+            window.location="login.html";
+        } else {
+            window.location="homepage.html";
+        }
+</script>
+
+
+
     <h3>LOGOUT and Delete cookie/session HERE</h3>
     <h1>Just a placeholder until I merge repos -- HomePage</h1>
     <h2>HOMEPAGE</h2>
@@ -62,6 +74,9 @@
     <p>When I come in through registration.html >>> I get the cookie it seems</p>
     <P>I get two cookies if I come in twice through the registration. Both with different logins</P>
     <a href="index.html">back to index</a>
+    <form class="form-logout" role="form">
+   <input type="submit" value="Logout" id="logout" class="btn btn-primary btn-lg">
+</form>
 </body>
 
 </html>
