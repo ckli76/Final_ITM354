@@ -11,7 +11,7 @@ var myParser = require("body-parser");
 var session = require('express-session');
 var moment = require("moment"); //Need this in the other server.
 
-app.use(session({ secret: "ITM352 rocks!" }));
+
 app.use(myParser.urlencoded({ extended: true }));
 
 //Assignment 2 Code
@@ -39,8 +39,8 @@ app.post("/login", function (request, response) {
         if (users_reg_data[the_username].password == the_password) {
             response.cookie(`${the_username}`, `${request.sessionID}`, { maxAge: 1000000000000000 }).redirect('homepage.html'); //session f
             console.log(`${the_username}` + " has logged on successfully!");
-            msg = `<html><script>if(!alert("Welcome " + ${the_username} + "last login time")) document.location = 'homepage.html'; </script></html>`;
-            response.send(msg);
+            //msg = `<html><script>if(!alert("Welcome " + ${the_username} + "last login time")) document.location = 'homepage.html'; </script></html>`;
+            //response.send(msg);
             // alert('This is what an alert message looks like.');
         } else {
             msg = `<html><script>if(!alert("invalid password")) history.back(-1); </script></html>`;
@@ -148,6 +148,9 @@ app.post("/login", function (request, response) {
             response.redirect('registration.html');
         }
     });
+
+
+
 
 
     // look for files in the "public" folder and listen on port 8080
