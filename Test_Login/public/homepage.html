@@ -56,12 +56,13 @@
 
 <body>
     <script>
-    var currentUser = Parse.User.current();
-        if (currentUser) {
-            Parse.User.logout();
-            window.location="login.html";
+    var current_User = users_reg_data[the_username]
+        if (typeof users_reg_data[the_username] == current_User) {
+            Parse.current.User(logout);
+            console.log('logout user')
+            window.location.response="login.html";
         } else {
-            window.location="homepage.html";
+            window.locaton.redirect="homepage.html";
         }
 </script>
 
