@@ -21,14 +21,24 @@
         }
     });
 
+    function PWFunction() {
+        var showPW = document.getElementById("PWInput")
+        if (showPW.type === "password") {
+            showPW.type = "text";
+        } else {
+            showPW.type = "password";
+        }
+    }
+
 </script>
 
 <body>
 
     <form name="basic_login" method="POST" action="/login">
         <input type="text" id="username_input" name="username" size="40" placeholder="username"><br />
-        <input type="password" name="password" size="40" placeholder="password"><br />
+        <input type="password" name="password" id="PWInput" size="40" placeholder="password"><br />
         <input type="submit" value="Login" id="submit_login">
+        <input type="checkbox" onclick="PWFunction()";>Show Password
     </form>
     <form>
         <p class="message">Not a user? <a href='./registration.html'>Register</a></p>
