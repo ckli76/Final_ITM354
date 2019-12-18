@@ -37,125 +37,127 @@ app.post("/login", function (request, response) {
     //console.log(the_password)
     if (typeof users_reg_data[the_username] != 'undefined') { //check if the username exists in the json data
         if (users_reg_data[the_username].password == the_password) {
-            response.cookie(`${the_username}`, `${request.sessionID}`, { maxAge: 1000000000000000 }).redirect('homepage.html'); //session f
+            response.cookie(`${the_username}`, `${request.sessionID}`, { maxAge: 1000000000000000 }); //session f
+            msg = `<html><script>alert("Welcome"); document.location = 'homepage.html'; </script></html>`;
+            response.send(msg);
             console.log(`${the_username}` + " has logged on successfully!");
-            //msg = `<html><script>if(!alert("Welcome " + ${the_username} + "last login time")) document.location = 'homepage.html'; </script></html>`;
-            //response.send(msg);
             // alert('This is what an alert message looks like.');
         } else {
-            msg = `<html><script>if(!alert("invalid password")) history.back(-1); </script></html>`;
-            response.send(msg);
+            mmsg = `<html><script>if(!alert("invalid password")) history.back(-1); </script></html>`;
+            response.send(mmsg);
         }
 
     } else {
-        msg = `<html><script>if(!alert("username not found")) history.back(-1); </script></html>`;
-        response.send(msg);
+        mmmsg = `<html><script>if(!alert("username not found")) history.back(-1); </script></html>`;
+        response.send(mmmsg);
     }
 }
 );
 app.post("/login", function (request, response) {
-   if(req.session.page_views){
-      req.session.page_views++;
-      res.send("You visited this page " + req.session.page_views + " times");
-   } else {
-      req.session.page_views = 1;
-      res.send("Welcome to this page for the first time!");
-   }
+    if (req.session.page_views) {
+        req.session.page_views++;
+        res.send("You visited this page " + req.session.page_views + " times");
+    } else {
+        req.session.page_views = 1;
+        res.send("Welcome to this page for the first time!");
+    }
 });
 
-    app.post("/register", function (request, response) {
-        regData = request.body;
-        console.log("Got the registration request");
-        console.log(request.body);
-        // process a simple register form
+app.post("/register", function (request, response) {
+    regData = request.body;
+    console.log("Got the registration request");
+    console.log(request.body);
+    // process a simple register form
 
-        validerrors = false;
+    validerrors = false;
 
-        username_input = regData.username.toLowerCase();
-        password_input = regData.password;
-        REpassword_input = regData.repeat_password;
-        email_input = regData.email;
+    username_input = regData.username.toLowerCase();
+    password_input = regData.password;
+    REpassword_input = regData.repeat_password;
+    email_input = regData.email;
 
-        //Validate username
-        var letters = /^[0-9a-zA-Z]+$/;
+    //Validate username
+    var letters = /^[0-9a-zA-Z]+$/;
 
-        if (typeof users_reg_data[username_input] != 'undefined') {
-            validerrors = true
-        };
-        if (username_input.length < 1 && username_input.length > -1) {
-            validerrors = true
-        };
-        if (username_input.length > 0 && username_input.length < 4) {
-            validerrors = true
-        };
-        if (username_input.length > 15) {
-            validerrors = true
-        };
-        if (username_input.match(letters)) { }
-        else {
-            validerrors = true
-        };
+    if (typeof users_reg_data[username_input] != 'undefined') {
+        validerrors = true
+    } ;
+    if (username_input.length < 1 && username_input.length > -1) {
+        validerrors = true
+    };
+    if (username_input.length > 0 && username_input.length < 4) {
+        validerrors = true
+    };
+    if (username_input.length > 15) {
+        validerrors = true
+    };
+    if (username_input.match(letters)) { }
+    else {
+        validerrors = true
+    };
+   
 
-        //Validate Password
+    //Validate Password
 
-        if (password_input.length < 1 && password_input.length > -1) {
-            validerrors = true
-        };
-        if (password_input.length > 0 && password_input.length < 5) {
-            validerrors = true
-        };
+    if (password_input.length < 1 && password_input.length > -1) {
+        validerrors = true
+    };
+    if (password_input.length > 0 && password_input.length < 5) {
+        validerrors = true
+    };
 
-        //Validate Re-Entered Password
+    //Validate Re-Entered Password
 
-        if (REpassword_input.length < 1 && REpassword_input.length > -1) {
-            validerrors = true
-        };
-        if (password_input != REpassword_input) {
-            validerrors = true
-        };
+    if (REpassword_input.length < 1 && REpassword_input.length > -1) {
+        validerrors = true
+    };
+    if (password_input != REpassword_input) {
+        validerrors = true
+    };
 
-        //Validate Email
+    //Validate Email
 
-        var email_letters = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+    var email_letters = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
-        if (email_input.length < 1 && email_input.length > -1) {
-            validerrors = true
-        };
+    if (email_input.length < 1 && email_input.length > -1) {
+        validerrors = true
+    };
 
-        if (email_input.match(email_letters)) { }
-        else { validerrors = true };
+    if (email_input.match(email_letters)) { }
+    else { validerrors = true };
 
-        username_input = regData.username;
+    username_input = regData.username;
 
-        if (validerrors == false) {
-            users_reg_data[username_input] = {};
-            users_reg_data[username_input].name = username_input;
-            users_reg_data[username_input].password = regData.password;
-            users_reg_data[username_input].email = regData.email;
+    if (validerrors == false) {
+        users_reg_data[username_input] = {};
+        users_reg_data[username_input].name = username_input;
+        users_reg_data[username_input].password = regData.password;
+        users_reg_data[username_input].email = regData.email;
 
-            console.log(username_input)
+        console.log(username_input)
 
-            var output_data = JSON.stringify(users_reg_data);
-            fs.writeFileSync(filename, JSON.stringify(users_reg_data));
+        var output_data = JSON.stringify(users_reg_data);
+        fs.writeFileSync(filename, JSON.stringify(users_reg_data));
 
-            console.log(output_data)
-            response.cookie(`${username_input}`, `${request.sessionID}`, { maxAge: 1000000000000000 }).redirect('homepage.html'); //session f
-            msg = `<html><script>if(!alert("Welcome" + ${username_input}) document.location = 'homepage.html'; </script></html>`;
-            response.send(msg); //to send an alert and redirect after registration
-            //response.send(`${username_input} registered!`);
-        }
-        else {
-            response.redirect('registration.html');
-        }
-    });
-
-
-
+        console.log(output_data)
+        response.cookie(`${username_input}`, `${request.sessionID}`, { maxAge: 1000000000000000 }).redirect('homepage.html'); //session f
+        mmmmmsg = `<html><script>if(!alert("Welcome")) document.location = 'homepage.html'; </script></html>`;
+        response.send(mmmmmsg); //to send an alert and redirect after registration
+        //response.send(`${username_input} registered!`);
+    }
+    else {
+        alert = `<html><script>alert("username taken"); history.back(-1);</script></html>`;
+        response.send(alert)
+    }
+});
 
 
-    // look for files in the "public" folder and listen on port 8080
-    app.use(express.static('./public'));
-    app.listen(8080, () => console.log(`listening on port 8080`));
+
+
+
+// look for files in the "public" folder and listen on port 8080
+app.use(express.static('./public'));
+app.listen(8080, () => console.log(`listening on port 8080`));
 
 //https://stackoverflow.com/questions/27812639/display-alert-message-in-browser-using-node-js
 //https://www.webucator.com/tutorial/learn-ajax/intro-ajax-the-nodejs-server.cfm
