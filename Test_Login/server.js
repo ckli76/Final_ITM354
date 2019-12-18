@@ -15,7 +15,7 @@ app.use(session({ secret: "ITM352 rocks!" }));
 app.use(myParser.urlencoded({ extended: true }));
 
 //Assignment 2 Code
-var filename = 'user_datatest.json' // Set variable filename to reference user_data.json
+var filename = 'user_data.json' // Set variable filename to reference user_data.json
 
 if (fs.existsSync(filename)) { //check to see if file exists
     stats = fs.statSync(filename);
@@ -137,110 +137,7 @@ app.post("/login", function (request, response) {
             response.redirect('registration.html');
         }
     });
-    //Card Registration Code - Clement Li
 
-    app.post("/card_registered", function (request, response) {
-        cardData = request.body; //card data is set as variable
-        console.log("Got the card registration request"); //Lets admin know grabbing the registration data was a success
-        console.log(request.body); //Lets admin see what was inputted in all the fields
-        // process a card request
-
-        username_data = cardData.username;
-        title_data = cardData.title;
-        event_data = cardData.event;
-        note_data = cardData.note
-        date_data = cardData.date;
-        time_data = cardData.time;
-        description_data = cardData.description;
-        tag_data = cardData.tag
-
-        //Figure out what username, figure out what tag. Than input the data into the JSON
-
-
-    });
-
-    /*This is where the magic happens: We figure out what
-     - Cards belong to today, tomorrow, this week, etc.
-     - Organize by time
-           - The most essential is the date & the time
-               - Compare vs a function that records today vs date
-               - Compare times for all the arrays
-           - Example: Fetching all the same product types
-     - Organize by tag
-     - Have one for all */
-
-
-    // Make an username input for all the pages for now. 
-
-    //console.log(users_reg_data.tester.tasks[1])
-    //console.log(users_reg_data.tester.tasks[0].title)
-    //console.log(users_reg_data.tester.tasks.length)
-
-    var userCardData = users_reg_data.tester.tasks
-
-
-    const EqualNote = userCardData.filter(YESnote => YESnote.note === true)
-    //Get all data that is type: note
-
-    const EqualEvent = userCardData.filter(YESevent => YESevent.event === true)
-    //Get all data that is type: event
-
-    //Checking for today's date
-
-    var m = moment();
-    var string = `${m.toISOString()}`
-    today = new Date(string)
-    var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
-    const EqualToday = userCardData.filter(YEStoday => YEStoday.date <= date)
-    const sortToday = EqualToday.sort((a, b) => (a.date > b.date || a.time > b.time ? 1 : -1));
-    //Checks which data is equal to today or past it
-    //console.log(EqualToday)
-
-    //Next is Tomorrow: Checking for tomorrow from current date
-
-    var m2 = moment();
-    var a = m2.add(1, "days")
-    var stringone = `${a.toISOString()}`
-    thisTmrrw = new Date(stringone)
-    var tomorrow = thisTmrrw.getFullYear() + '-' + (thisTmrrw.getMonth() + 1) + '-' + thisTmrrw.getDate();
-    const EqualTomorrow = userCardData.filter(YESTmrrw => date < YESTmrrw.date && YESTmrrw.date === tomorrow)
-    const sortTomorrow = EqualTomorrow.sort((a, b) => (a.date > b.date || a.time > b.time ? 1 : -1));
-
-    //console.log(EqualTomorrow)
-    //Next is Week: Checking for week from current date
-
-    var m3 = moment();
-    var b = m3.add(1, "weeks")
-    var stringtwo = `${b.toISOString()}`
-    thisWeek = new Date(stringtwo)
-    var week = thisWeek.getFullYear() + '-' + (thisWeek.getMonth() + 1) + '-' + thisWeek.getDate();
-    const EqualWeek = userCardData.filter(YESweek => tomorrow < YESweek.date && YESweek.date <= week)
-    const sortWeek = EqualWeek.sort((a, b) => (a.date > b.date || a.time > b.time ? 1 : -1));
-
-    //console.log(EqualWeek)
-    //Next is Month: Checking for month from current date
-
-    var m4 = moment();
-    var c = m3.add(1, "months")
-    var stringthree = `${c.toISOString()}`
-    thisMonth = new Date(stringthree)
-    var month = thisMonth.getFullYear() + '-' + (thisMonth.getMonth() + 1) + '-' + thisMonth.getDate();
-    const EqualMonth = userCardData.filter(YESmonth => week < YESmonth.date && YESmonth.date <= month)
-    const sortMonth = EqualMonth.sort((a, b) => (a.date > b.date || a.time > b.time ? 1 : -1));
-    //const sortTime = sortAges.sort((a, b) => (a.time > b.time ? 1 : -1));
-
-    //console.log(sortMonth)
-    //Next is Year: Checking for year from current date
-
-    /*var m5 = moment();
-    var d = m4.add(1, "years")
-    var stringfour = `${d.toISOString()}`
-    thisYear = new Date(stringfour)
-    var year = thisYear.getFullYear()+'-'+(thisYear.getMonth()+1)+'-'+thisYear.getDate();*/
-    const EqualYear = userCardData.filter(YESyear => month < YESyear.date)
-    const sortYear = EqualYear.sort((a, b) => (a.date > b.date || a.time > b.time ? 1 : -1));
-
-    //console.log(EqualYear)
 
     // look for files in the "public" folder and listen on port 8080
     app.use(express.static('./public'));
