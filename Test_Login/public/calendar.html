@@ -1,18 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
+    <script>
+        function removeCookies() {
+                var res = document.cookie;
+                var multiple = res.split(";");
+                for(var i = 0; i < multiple.length; i++) {
+                   var key = multiple[i].split("=");
+                   document.cookie = key[0]+" =; expires = Thu, 01 Jan 1970 00:00:00 UTC";
+                }
+             }
+    </script>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 </head>
+
 <body>
     <div id="myDropdown" class="dropdown-content">
         <a href="homepage.html">Home</a>
         <a href="card_index.html">Card Index</a>
         <a href="calendar.html">Calendar</a>
     </div>
-    <h3>LOGOUT and Delete cookie/session HERE</h3>
+    <form name="basic_login" method="POST" action="/logout">
+        <input type="submit" value="Logout" id="logout" class="btn btn-primary btn-lg" onclick="removeCookies()";>
     <h1>Just a placeholder for calendar until I merge the repos</h1>
     <h2>CALENDAR</h2>
     <p><strong>User who is accessing this page is: </strong>put username here! Use function or whatever</p>
