@@ -6,20 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <script>
-    var session = require('express-session');
-
-    app.post("/login", function (request, response) {
-        if (req.session.page_views) {
-            req.session.page_views++;
-            res.send("You visited this page " + req.session.page_views + " times");
-        } else {
-            req.session.page_views = 1;
-            res.send("Welcome to this page for the first time!");
-        }
-    });
 
     function PWFunction() {
         var showPW = document.getElementById("PWInput")
@@ -29,7 +19,6 @@
             showPW.type = "password";
         }
     }
-
 </script>
 
 <body>
@@ -39,14 +28,14 @@
         <input type="password" name="password" id="PWInput" size="40" placeholder="password"><br />
         <input type="submit" value="Login" id="submit_login">
         <input type="checkbox" onclick="PWFunction()";>Show Password
-    </form>
-    <form>
         <p class="message">Not a user? <a href='./registration.html'>Register</a></p>
+        <a href="index.html">back to index</a>
     </form>
+    
     <p>I need to know what the password is. Reveal password like registration</p>
     <p>Login inputs disappear if its an error. And I have to retype the username and password</p>
     <p>not redirecting to homepage. Registration.html seems to work, but login doesn't</p>
-    <a href="index.html">back to index</a>
+
 </body>
 
 </html>
