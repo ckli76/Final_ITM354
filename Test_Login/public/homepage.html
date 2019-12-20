@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <style type='text/css'>
     #card {
         height: 550px;
@@ -36,7 +35,27 @@
         margin-bottom: 30px;
     }
 </style>
+<script>
+    function removeCookies() {
+            var res = document.cookie;
+            var multiple = res.split(";");
+            for(var i = 0; i < multiple.length; i++) {
+               var key = multiple[i].split("=");
+               document.cookie = key[0]+" =; expires = Thu, 01 Jan 1970 00:00:00 UTC";
+            }
+         }
 
+       
+
+  var currentUser = Parse.User.current();
+        if (currentUser) {
+            Parse.User.logout();
+            window.location="login.html";
+        } else {
+            window.location="homepage.html";
+        }
+    
+</script>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -54,30 +73,17 @@
     </div>
 </header>>
 
+
 <body>
-    <script>
-    var current_User = users_reg_data[the_username]
-        if (typeof users_reg_data[the_username] == current_User) {
-            Parse.current.User(logout);
-            console.log('logout user')
-            window.location.response="login.html";
-        } else {
-            window.locaton.redirect="homepage.html";
-        }
-</script>
-
-
 
     <h3>LOGOUT and Delete cookie/session HERE</h3>
     <h1>Just a placeholder until I merge repos -- HomePage</h1>
     <h2>HOMEPAGE</h2>
     <p><strong>User who is accessing this page is: </strong>put username here! Use function or whatever</p>
-    <p>When I come in through registration.html >>> I get the cookie it seems</p>
     <P>I get two cookies if I come in twice through the registration. Both with different logins</P>
     <a href="index.html">back to index</a>
-    <form class="form-logout" role="form">
-   <input type="submit" value="Logout" id="logout" class="btn btn-primary btn-lg">
+    <form name="basic_login" method="POST" action="/logout">
+   <input type="submit" value="Logout" id="logout" class="btn btn-primary btn-lg" onclick="removeCookies()";>
 </form>
 </body>
-
 </html>
