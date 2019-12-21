@@ -11,7 +11,7 @@ var myParser = require("body-parser");
 var session = require('express-session');
 var moment = require("moment"); //Need this in the other server.
 
-
+app.use(session({ secret: "ITM352 rocks!" }));
 app.use(myParser.urlencoded({ extended: true }));
 
 //Assignment 2 Code
@@ -37,10 +37,9 @@ app.post("/login", function (request, response) {
     //console.log(the_password)
     if (typeof users_reg_data[the_username] != 'undefined') { //check if the username exists in the json data
         if (users_reg_data[the_username].password == the_password) {
-            response.cookie(`${the_username}`, `${request.sessionID}`, { maxAge: 1000000000000000 }).redirect('homepage.html'); //session f
             console.log(`${the_username}` + " has logged on successfully!");
-            //msg = `<html><script>if(!alert("Welcome " + ${the_username} + "last login time")) document.location = 'homepage.html'; </script></html>`;
-            //response.send(msg);
+            msg = `<html><script>if(!alert("Welcome " + ${the_username} + "last login time")) document.location = 'homepage.html'; </script></html>`;
+            response.send(msg);
             // alert('This is what an alert message looks like.');
         } else {
             msg = `<html><script>if(!alert("invalid password")) document.location = 'login.html'; </script></html>`;
@@ -49,32 +48,6 @@ app.post("/login", function (request, response) {
 
     } else {
         msg = `<html><script>if(!alert("username not found")) document.location = 'login.html'; </script></html>`;
-        response.send(msg);
-    }
-}
-);
-app.post("/logout", function (request, response) {
-    logoutData = request.body;
-    //console.log(logoutData);
-    // Process logout form POST and redirect to logged in page if ok, back to login page if not
-    the_username = logoutData.username;
-    the_password = logoutData.password;
-    //console.log(the_username)
-    //console.log(the_password)
-    if (typeof users_reg_data[the_username] != 'undefined') { //check if the username exists in the json data
-        if (users_reg_data[the_username].password == the_password) {
-            response.cookie(`${the_username}`, `${request.sessionID}`, { maxAge: 1000000000000000 }).redirect('homepage.html'); //session f
-            console.log(`${the_username}` + " has logged out successfully!");
-            //msg = `<html><script>if(!alert("Welcome " + ${the_username} + "last login time")) document.location = 'homepage.html'; </script></html>`;
-            //response.send(msg);
-            // alert('This is what an alert message looks like.');
-        } else {
-            msg = `<html><script>if(!alert("No logout submitted")) document.location = 'login.html'; </script></html>`;
-            response.send(msg);
-        }
-
-    } else {
-        msg = `<html><script>if(!alert("logout unsuccessfull")) document.location = 'login.html'; </script></html>`;
         response.send(msg);
     }
 }
@@ -174,9 +147,6 @@ app.post("/login", function (request, response) {
             response.redirect('registration.html');
         }
     });
-
-
-
 
 
     // look for files in the "public" folder and listen on port 8080
