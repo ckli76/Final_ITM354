@@ -155,7 +155,6 @@ app.post("/card_registered", function (request, response) {
     console.log("Got the card registration request"); //Lets admin know grabbing the registration data was a success
     //console.log(request.body); //Lets admin see what was inputted in all the fields
     // process a card request
-
     username_data = cardData.username;
     title_data = cardData.title;
     event_data = JSON.parse(cardData.event);
@@ -183,8 +182,8 @@ app.post("/card_registered", function (request, response) {
 
     var writeFile = JSON.stringify(users_reg_data);
     fs.writeFileSync(filename, JSON.stringify(users_reg_data));
-
-    response.redirect('/index.html');
+    
+    response.redirect('card_index.html');
 });
 
 
@@ -233,7 +232,8 @@ var date = today.getFullYear() + '-' + ("0" + (today.getMonth() + 1)).slice(-2) 
 function FindToday(CardTagName) {
     //Checking for today's date
     const EqualToday = CardTagName.filter(YEStoday => YEStoday.date <= date)
-    const sortToday = EqualToday.sort((a, b) => (a.date > b.date || a.time > b.time ? 1 : -1));
+    const EqualEvent = EqualToday.filter(YESevent => YESevent.event === true)
+    const sortToday = EqualEvent.sort((a, b) => (a.date > b.date || a.time > b.time ? 1 : -1));
     //Checks which data is equal to today or past it
     //console.log(EqualToday)
     return sortToday;
@@ -248,7 +248,8 @@ var tomorrow = thisTmrrw.getFullYear() + '-' + ("0" + (thisTmrrw.getMonth() + 1)
 function FindTomorrow(CardTagName) {
     //Next is Tomorrow: Checking for tomorrow from current date
     const EqualTomorrow = CardTagName.filter(YESTmrrw => date < YESTmrrw.date && YESTmrrw.date === tomorrow)
-    const sortTomorrow = EqualTomorrow.sort((a, b) => (a.date > b.date || a.time > b.time ? 1 : -1));
+    const EqualEvent = EqualTomorrow.filter(YESevent => YESevent.event === true)
+    const sortTomorrow = EqualEvent.sort((a, b) => (a.date > b.date || a.time > b.time ? 1 : -1));
     //console.log(EqualTomorrow)
     return sortTomorrow;
 };
@@ -263,7 +264,8 @@ var week = thisWeek.getFullYear() + '-' + ("0" + (thisWeek.getMonth() + 1)).slic
 function FindWeek(CardTagName) {
     //Next is Week: Checking for week from current date
     const EqualWeek = CardTagName.filter(YESweek => tomorrow < YESweek.date && YESweek.date <= week)
-    const sortWeek = EqualWeek.sort((a, b) => (a.date > b.date || a.time > b.time ? 1 : -1));
+    const EqualEvent = EqualWeek.filter(YESevent => YESevent.event === true)
+    const sortWeek = EqualEvent.sort((a, b) => (a.date > b.date || a.time > b.time ? 1 : -1));
     //console.log(EqualWeek)
     return sortWeek;
 };
@@ -278,7 +280,8 @@ var month = thisMonth.getFullYear() + '-' + ("0" + (thisMonth.getMonth() + 1)).s
 function FindMonth(CardTagName) {
     //Next is Month: Checking for month from current date
     const EqualMonth = CardTagName.filter(YESmonth => week < YESmonth.date && YESmonth.date <= month)
-    const sortMonth = EqualMonth.sort((a, b) => (a.date > b.date || a.time > b.time ? 1 : -1));
+    const EqualEvent = EqualMonth.filter(YESevent => YESevent.event === true)
+    const sortMonth = EqualEvent.sort((a, b) => (a.date > b.date || a.time > b.time ? 1 : -1));
     //console.log(sortMonth)
     return sortMonth;
 };
@@ -292,7 +295,8 @@ var year = thisYear.getFullYear() + '-' + ("0" + (thisYear.getMonth() + 1)).slic
 function FindYear(CardTagName) {
     //Next is Year: Checking for year from current date
     const EqualYear = CardTagName.filter(YESyear => month < YESyear.date)
-    const sortYear = EqualYear.sort((a, b) => (a.date > b.date || a.time > b.time ? 1 : -1));
+    const EqualEvent = EqualYear.filter(YESevent => YESevent.event === true)
+    const sortYear = EqualEvent.sort((a, b) => (a.date > b.date || a.time > b.time ? 1 : -1));
     return sortYear;
 };
 
@@ -358,6 +362,24 @@ var userAllCards = [TaskEvent, WorkEvent, AppointEvent, OccasionEvent]
 app.get('/getAllCards', function (req, res) {
     res.send(userAllCards);
     //console.log("Sent all Cards!")
+});
+
+//EDITING FUNCTION PART
+
+app.put('/card_change/:title', function(req, res) {
+    var title = req.params.title;
+    var body = req.body;
+    console.log(body)
+    /*
+    var found = false;
+
+    products.forEach(function(product, index) {
+        if (!found && product.id === Number(id)) {
+            product.name = newName;
+        }
+    });
+    */
+    res.send('Succesfully updated product!');
 });
 
 // look for files in the "public" folder and listen on port 8080

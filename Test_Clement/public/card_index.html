@@ -2,101 +2,242 @@
 <html lang="en">
 
 <head>
+    <link href="style.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.4.1.js"
+        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 </head>
 
-<style type='text/css'>
-    #card {
-        height: 275px;
-        width: 200px;
-        border: solid 1px #CCC;
-        /* SOME CSS3 DIV SHADOW */
-        -webkit-box-shadow: 0px 0px 10px #CCC;
-        -moz-box-shadow: 0px 0px 10px #CCC;
-        box-shadow: 0px 0px 10px #CCC;
-        /* CSS3 ROUNDED CORNERS */
-        -moz-border-radius: 5px;
-        -webkit-border-radius: 5px;
-        -khtml-border-radius: 5px;
-        border-radius: 5px;
-        background-color: #FFF;
-    }
-</style>
-
-<body>
-    <div class="dropdown">
-        <button onclick="myFunction()" class="dropbtn">Dropdown</button>
-        <div id="myDropdown" class="dropdown-content">
-            <a href="index.html">Home</a>
-            <a href="card_index.html">Index</a>
-            <a href="calendar.html">Calendar</a>
-        </div>
-    </div>
+<body onload=ClickThat();>
     <div class="ajax-container" id='card_index'>
-        <input type='button' id="TaskCall" value='Tasks' onclick='document.getElementById("DataType").value = "tasks"'>
-        <input type='button' id="WorkCall" value='Work' onclick='document.getElementById("DataType").value = "work"'>
-        <input type='button' id="AppointCall" value='Appointments'
-            onclick='document.getElementById("DataType").value = "appointments"'>
-        <input type='button' id="OccasionCall" value='Occasion'
-            onclick='document.getElementById("DataType").value = "occasion"'>
-        <input type='button' id="NotesCall" value='Notes' onclick='document.getElementById("DataType").value = "notes"'>
-        <input type="hidden" id="DataType" name="DataType" value="tasks">
-        <br>
-        <br>
-        <h1>Today</h1>
-        <div class="display-today">
+        <div id="mySidebar" class="sidebar">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+            <input type='button' class="button2" id="TaskCall" value='Tasks'
+                onclick='document.getElementById("DataType").value = "tasks"'><br><br>
+            <input type='button' class="button2" id="WorkCall" value='Work'
+                onclick='document.getElementById("DataType").value = "work"'><br><br>
+            <input type='button' class="button2" id="AppointCall" value='Appointments'
+                onclick='document.getElementById("DataType").value = "appointments"'><br><br>
+            <input type='button' class="button2" id="OccasionCall" value='Occasion'
+                onclick='document.getElementById("DataType").value = "occasion"'><br><br>
+            <input type='button' class="button2" id="NotesCall" value='Notes'
+                onclick='document.getElementById("DataType").value = "notes"'><br><br>
+            <input type="hidden" class="button2" id="DataType" name="DataType" value="tasks">
         </div>
-        <h1>Tomorrow</h1>
-        <div class="display-tomorrow">
-        </div>
-        <h1>This Week</h1>
-        <div class="display-week">
-        </div>
-        <h1>This Month</h1>
-        <div class="display-month">
-        </div>
-        <h1>This Year</h1>
-        <div class="display-year">
-        </div>
-        <h1>Notes</h1>
-        <div class="display-notes">
+        <div id="main">
+            <div class="dropdown">
+                <button onclick="DropDown()" class="dropbtn">Directory</button>
+                <div id="myDropdown" class="dropdown-content">
+                    <a href="homepage.html">Home</a>
+                    <a href="card_index.html">Card Index</a>
+                    <a href="calendar.html">Calendar</a>
+                </div>
+            </div>
+            <div>
+                <!-- Trigger/Open The Modal -->
+                <button class="openbtn" onclick="openNav()">&#9776;</button>
+                <button class="openCard" id="OpenBtn"><strong>&#128466</strong></button>
+            </div>
+            <br>
+            <br>
+            <br>
+            <input type="text" id="username" name="username" placeholder="Placeholder for Username">
+            <h1 id="Heading1">Today</h1>
+            <div class="display-today">
+            </div>
+            <h1 id="Heading2">Tomorrow</h1>
+            <div class="display-tomorrow">
+            </div>
+            <h1 id="Heading3">This Week</h1>
+            <div class="display-week">
+            </div>
+            <h1 id="Heading4">This Month</h1>
+            <div class="display-month">
+            </div>
+            <h1 id="Heading5">This Year</h1>
+            <div class="display-year">
+            </div>
+            <h1 id="Heading6">Notes</h1>
+            <div class="display-notes">
+            </div>
         </div>
     </div>
+
+    <!--MODAL STARTS HERE-->
+
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 style="text-align: center;">Enter Card Information</h2>
+            <form name="card_input" id="card_input" method="POST" action="/card_registered">
+                <input type="text" id="username" name="username" placeholder="Placeholder for Username">
+                <div>
+                    <input type="text" id="title" name="title" placeholder="Add title">
+                </div>
+                <input type="button" id="cardBtn_event" name="cardBtn_event" value="Event" onclick='document.getElementById("card_input").elements.namedItem("event").value = true;
+                          document.getElementById("card_input").elements.namedItem("note").value = false'>
+                <input type="hidden" id="event" name="event" value=true>
+
+                <input type="button" id="cardBtn_note" name="cardBtn_note" value="Note" onclick='document.getElementById("card_input").elements.namedItem("event").value = false;
+                          document.getElementById("card_input").elements.namedItem("note").value = true'>
+                <input type="hidden" id="note" name="note" value=false>
+                <div>
+                    <input type="date" id="date" name="date" data-date-inline-picker="false"
+                        data-date-open-on-focus="true" />
+                    <input type="time" id="time" name="time" value="00:00:00" step="1800">
+                </div>
+                <div> <textarea name="description" id="description" rows="10" cols="30"
+                        placeholder="Add description"></textarea></div>
+                <div>
+                    <select id="tag" name="tag">
+                        <option value="tasks">Tasks</option>
+                        <option value="work">Work</option>
+                        <option value="appointments">Appointments</option>
+                        <option value="occasion">Occasion</option>
+                        <option value="notes">Notes</option>
+                    </select>
+                </div>
+                <div><input type="submit" value="submit"></div>
+            </form>
+        </div>
+
     </div>
-    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> -->
-    <script src="https://code.jquery.com/jquery-3.4.1.js"
-        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-        crossorigin="anonymous"></script>
-    <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-        crossorigin="anonymous"></script> -->
+
     <script>
-        console.log(document.getElementById("DataType").value)
+        // Get the modal
+        var modal = document.getElementById("myModal");
+
+        // Get the button that opens the modal
+        var btn = document.getElementById("OpenBtn");
+
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+
+        // When the user clicks the button, open the modal 
+        btn.onclick = function () {
+            modal.style.display = "block";
+        }
+
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function () {
+            modal.style.display = "none";
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+        $("#cardBtn_note").click(function () {
+            $("#time").hide();
+            $("#date").hide();
+        });
+
+        $("#cardBtn_event").click(function () {
+            $("#time").show();
+            $("#date").show();
+        });
+
+        function HideHeadings() {
+            $("#Heading1").hide();
+            $("#Heading2").hide();
+            $("#Heading3").hide();
+            $("#Heading4").hide();
+            $("#Heading5").hide();
+        }
+
+        function ReturnHeadings() {
+            $("#Heading1").show();
+            $("#Heading2").show();
+            $("#Heading3").show();
+            $("#Heading4").show();
+            $("#Heading5").show();
+        }
+    </script>
+
+    <!--SIDEBAR-->
+    <script>
+        /* Set the width of the sidebar to 250px and the left margin of the page content to 250px */
+        function openNav() {
+            document.getElementById("mySidebar").style.width = "250px";
+            document.getElementById("main").style.marginLeft = "250px";
+        }
+
+        /* Set the width of the sidebar to 0 and the left margin of the page content to 0 */
+        function closeNav() {
+            document.getElementById("mySidebar").style.width = "0";
+            document.getElementById("main").style.marginLeft = "0";
+        }
+    </script>
+
+    <!--DROPDOWN-->
+    <script>
+        /* When the user clicks on the button,
+    toggle between hiding and showing the dropdown content */
+        function DropDown() {
+            document.getElementById("myDropdown").classList.toggle("show");
+        }
+
+        // Close the dropdown menu if the user clicks outside of it
+        window.onclick = function (event) {
+            if (!event.target.matches('.dropbtn')) {
+                var dropdowns = document.getElementsByClassName("dropdown-content");
+                var i;
+                for (i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!--Ajax & Server-->
+
+    <script>
+        //console.log(document.getElementById("DataType").value)
+
+        function ClickThat() { DisplayToday(); DisplayTomorrow(); DisplayWeek(); DisplayMonth(); DisplayYear(); DisplayNotes(); };
 
         $("#TaskCall").click(function () {
-            DisplayToday(); DisplayTomorrow(); DisplayWeek(); DisplayMonth(); DisplayYear(); DisplayNotes();
+            ReturnHeadings(); DisplayToday(); DisplayTomorrow(); DisplayWeek(); DisplayMonth(); DisplayYear(); DisplayNotes();
         });
 
         $("#WorkCall").click(function () {
-            DisplayToday(); DisplayTomorrow(); DisplayWeek(); DisplayMonth(); DisplayYear(); DisplayNotes();
+            ReturnHeadings(); DisplayToday(); DisplayTomorrow(); DisplayWeek(); DisplayMonth(); DisplayYear(); DisplayNotes();
         });
         $("#AppointCall").click(function () {
-            DisplayToday(); DisplayTomorrow(); DisplayWeek(); DisplayMonth(); DisplayYear(); DisplayNotes();
+            ReturnHeadings(); DisplayToday(); DisplayTomorrow(); DisplayWeek(); DisplayMonth(); DisplayYear(); DisplayNotes();
         });
         $("#OccasionCall").click(function () {
-            DisplayToday(); DisplayTomorrow(); DisplayWeek(); DisplayMonth(); DisplayYear(); DisplayNotes();
+            ReturnHeadings(); DisplayToday(); DisplayTomorrow(); DisplayWeek(); DisplayMonth(); DisplayYear(); DisplayNotes();
         });
         $("#NotesCall").click(function () {
-            DisplayToday(); DisplayTomorrow(); DisplayWeek(); DisplayMonth(); DisplayYear(); DisplayNotes();
+            HideHeadings(); DisplayToday(); DisplayTomorrow(); DisplayWeek(); DisplayMonth(); DisplayYear(); DisplayNotes();
         });
 
-        var TagType = document.getElementById("DataType").value
+        /*$(".delete-button").click(function () {
+            Testfunction();
+        });
+
+        function Testfunction() {
+            //var FindRow = $(this).closest('tr');
+            //console.log(FindRow);
+            console.log('This function works')
+        }*/
 
         function DisplayToday() {
             $.ajax({
@@ -113,39 +254,11 @@
                 //Loop through and put the object data in right areas in this html code
                 for (var i = 0; i < data.length; i++) {
                     str += '\
-                        <div id="card">\
-                        <strong>' + data[i].title + '<strong>' + '<br />' +
-                        'Time: ' + data[i].date + ' ' + data[i].time + '<br />' +
-                        'Note: ' + data[i].description + '<br />\
+                        <div id="card1">\
+                        <br><header style="text-align: center; font-size: 20px;"><strong>' + data[i].title + '<strong></header>' +
+                        '<p style="text-align: center; font-size: 17.5px">Time: ' + data[i].date + ' ' + data[i].time + '</p><br />' +
+                        '<p style="text-align: center;">Note: ' + data[i].description + '</p><br />\
                         </div>\
-                    <table>\
-                    <thead>\
-                        <tr>\
-                            <div>\
-                                <input type="text" id="title" name="title" value="' + data[i].title + '">\
-                            </div>\
-                        </tr>\
-                    </thead>\
-                    <tbody>\
-                        <tr>\
-                            <div>\
-                                <input type="date" id="date" name="date" data-date-inline-picker="false" data-date-open-on-focus="true" value="' + data[i].date + '" />\
-                            </div>\
-                        </tr>\
-                        <tr>\
-                            <div>\
-                                <input type="time" id="time" name="time" value="' + data[i].time + '" step="1800">\
-                            </div>\
-                        </tr>\
-                    </tbody>\
-                    <tfoot>\
-                        <tr>\
-                            <div> <textarea name="description" id="description" rows="10" cols="30">' + data[i].description + '</textarea></div>\
-                        </tr>\
-                    </tfoot>\
-                    </table>\
-                        <button class="update-button">UPDATE</button>\
-                        <button class="delete-button">DELETE</button>\
                         '};
                 //Everytime press button, gotta empty it. Otherwise same data or new data will be appended to existing ones
                 $(".display-today").empty();
@@ -168,12 +281,13 @@
                 //Declare the variable outside of the for loop to use it.
                 //Loop through and put the object data in right areas in this html code
                 for (var i = 0; i < data.length; i++) {
-                    str += '<div class ="item-details">' +
-                        '<strong>' + data[i].title + '<strong>' + '<br />' +
-                        'Time: ' + data[i].date + ' ' + data[i].time + '<br />' +
-                        'Note: ' + data[i].description + '<br />' +
-                        '<div>' + '<br />';
-                };
+                    str += '\
+                        <div id="card1">\
+                        <br><header style="text-align: center; font-size: 20px;"><strong>' + data[i].title + '<strong></header>' +
+                        '<p style="text-align: center; font-size: 17.5px">Time: ' + data[i].date + ' ' + data[i].time + '</p><br />' +
+                        '<p style="text-align: center;">Note: ' + data[i].description + '</p><br />\
+                        </div>\
+                        '};
                 //Everytime press button, gotta empty it. Otherwise same data or new data will be appended to existing ones
                 $(".display-tomorrow").empty();
                 $(".display-tomorrow").append(str);
@@ -195,12 +309,13 @@
                 //Declare the variable outside of the for loop to use it.
                 //Loop through and put the object data in right areas in this html code
                 for (var i = 0; i < data.length; i++) {
-                    str += '<div class ="item-details">' +
-                        '<strong>' + data[i].title + '<strong>' + '<br />' +
-                        'Time: ' + data[i].date + ' ' + data[i].time + '<br />' +
-                        'Note: ' + data[i].description + '<br />' +
-                        '<div>' + '<br />';
-                };
+                    str += '\
+                        <div id="card1">\
+                        <br><header style="text-align: center; font-size: 20px;"><strong>' + data[i].title + '<strong></header>' +
+                        '<p style="text-align: center; font-size: 17.5px">Time: ' + data[i].date + ' ' + data[i].time + '</p><br />' +
+                        '<p style="text-align: center;">Note: ' + data[i].description + '</p><br />\
+                        </div>\
+                        '};
                 //Everytime press button, gotta empty it. Otherwise same data or new data will be appended to existing ones
                 $(".display-week").empty();
                 $(".display-week").append(str);
@@ -222,12 +337,13 @@
                 //Declare the variable outside of the for loop to use it.
                 //Loop through and put the object data in right areas in this html code
                 for (var i = 0; i < data.length; i++) {
-                    str += '<div class ="item-details">' +
-                        '<strong>' + data[i].title + '<strong>' + '<br />' +
-                        'Time: ' + data[i].date + ' ' + data[i].time + '<br />' +
-                        'Note: ' + data[i].description + '<br />' +
-                        '<div>' + '<br />';
-                };
+                    str += '\
+                        <div id="card1">\
+                        <br><header style="text-align: center; font-size: 20px;"><strong>' + data[i].title + '<strong></header>' +
+                        '<p style="text-align: center; font-size: 17.5px">Time: ' + data[i].date + ' ' + data[i].time + '</p><br />' +
+                        '<p style="text-align: center;">Note: ' + data[i].description + '</p><br />\
+                        </div>\
+                        '};
                 //Everytime press button, gotta empty it. Otherwise same data or new data will be appended to existing ones
                 $(".display-month").empty();
                 $(".display-month").append(str);
@@ -249,12 +365,13 @@
                 //Declare the variable outside of the for loop to use it.
                 //Loop through and put the object data in right areas in this html code
                 for (var i = 0; i < data.length; i++) {
-                    str += '<div class ="item-details">' +
-                        '<strong>' + data[i].title + '<strong>' + '<br />' +
-                        'Time: ' + data[i].date + ' ' + data[i].time + '<br />' +
-                        'Note: ' + data[i].description + '<br />' +
-                        '<div>' + '<br />';
-                };
+                    str += '\
+                        <div id="card1">\
+                        <br><header style="text-align: center; font-size: 20px;"><strong>' + data[i].title + '<strong></header>' +
+                        '<p style="text-align: center; font-size: 17.5px">Time: ' + data[i].date + ' ' + data[i].time + '</p><br />' +
+                        '<p style="text-align: center;">Note: ' + data[i].description + '</p><br />\
+                        </div>\
+                        '};
                 //Everytime press button, gotta empty it. Otherwise same data or new data will be appended to existing ones
                 $(".display-year").empty();
                 $(".display-year").append(str);
@@ -276,11 +393,12 @@
                 //Declare the variable outside of the for loop to use it.
                 //Loop through and put the object data in right areas in this html code
                 for (var i = 0; i < data.length; i++) {
-                    str += '<div class ="item-details">' +
-                        '<strong>' + data[i].title + '<strong>' + '<br />' +
-                        'Note: ' + data[i].description + '<br />' +
-                        '<div>' + '<br />';
-                };
+                    str += '\
+                        <div id="card1">\
+                        <br><header style="text-align: center; font-size: 20px;"><strong>' + data[i].title + '<strong></header>' +
+                        '<p style="text-align: center;">Note: ' + data[i].description + '</p><br />\
+                        </div>\
+                        '};
                 //Everytime press button, gotta empty it. Otherwise same data or new data will be appended to existing ones
                 $(".display-notes").empty();
                 $(".display-notes").append(str);
@@ -293,3 +411,35 @@
 </body>
 
 </html>
+
+<script>
+//This is just future functionality that I'm planning to add over the break
+
+    /*<button class="delete-button">TEST</button>\
+                 <table>\
+                 <thead>\
+                     <tr>\
+                         <div>\
+                             <input type="text" name="title" value="' + data[i].title + '">\
+                         </div>\
+                     </tr>\
+                 </thead>\
+                 <tbody>\
+                     <tr>\
+                         <div>\
+                             <input type="date" name="date" data-date-inline-picker="false" data-date-open-on-focus="true" value="' + data[i].date + '" />\
+                         </div>\
+                     </tr>\
+                     <tr>\
+                         <div>\
+                             <input type="time" name="time" value="' + data[i].time + '" step="1800">\
+                         </div>\
+                     </tr>\
+                 </tbody>\
+                 <tfoot>\
+                     <tr>\
+                         <div> <textarea name="description" rows="10" cols="30">' + data[i].description + '</textarea></div>\
+                     </tr>\
+                 </tfoot>\
+                 </table>\*/
+</script>

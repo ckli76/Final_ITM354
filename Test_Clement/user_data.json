@@ -188,14 +188,6 @@
                 "event": false,
                 "note": true,
                 "description": "Break a leg? Get rope to grapple down from window?"
-            },
-            {
-                "title": "Testing to work",
-                "event": true,
-                "note": false,
-                "date": "2019-12-15",
-                "time": "17:00",
-                "description": "Hopefully this works"
             }
         ],
         "appointments": [

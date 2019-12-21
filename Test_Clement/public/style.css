@@ -1,0 +1,329 @@
+        /* The Modal (background) */
+        .modal {
+            display: none;
+            /* Hidden by default */
+            position: fixed;
+            /* Stay in place */
+            z-index: 1;
+            /* Sit on top */
+            padding-top: 100px;
+            /* Location of the box */
+            left: 0;
+            top: 0;
+            width: 100%;
+            /* Full width */
+            height: 100%;
+            /* Full height */
+            overflow: auto;
+            /* Enable scroll if needed */
+            background-color: rgb(0, 0, 0);
+            /* Fallback color */
+            background-color: rgba(0, 0, 0, 0.4);
+            /* Black w/ opacity */
+        }
+
+        /* Modal Content */
+        .modal-content {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 30%;
+            text-align: center;
+        }
+
+        /* The Close Button */
+        .close {
+            color: #aaaaaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        #card {
+            height: 550px;
+            width: 400px;
+            margin: auto;
+            margin-top: 60px;
+            border: solid 1px #CCC;
+            /* SOME CSS3 DIV SHADOW */
+            -webkit-box-shadow: 0px 0px 10px #CCC;
+            -moz-box-shadow: 0px 0px 10px #CCC;
+            box-shadow: 0px 0px 10px #CCC;
+            /* CSS3 ROUNDED CORNERS */
+            -moz-border-radius: 5px;
+            -webkit-border-radius: 5px;
+            -khtml-border-radius: 5px;
+            border-radius: 5px;
+            background-color: #FFF;
+        }
+
+        #card1 {
+            height: 330px;
+            width: 260px;
+            border: solid 1px #CCC;
+            /* SOME CSS3 DIV SHADOW */
+            -webkit-box-shadow: 0px 0px 10px #CCC;
+            -moz-box-shadow: 0px 0px 10px #CCC;
+            box-shadow: 0px 0px 10px #CCC;
+            /* CSS3 ROUNDED CORNERS */
+            -moz-border-radius: 5px;
+            -webkit-border-radius: 5px;
+            -khtml-border-radius: 5px;
+            border-radius: 5px;
+            background-color: #FFF;
+        }
+
+        #cardBtn {
+            height: 20px;
+            line-height: 10px;
+            width: 120px;
+            text-align: center;
+        }
+    
+        #card h1 {
+            text-align: center;
+        }
+    
+        #card form {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+            /* The sidebar menu */
+    .sidebar {
+        height: 100%;
+        /* 100% Full-height */
+        width: 0;
+        /* 0 width - change this with JavaScript */
+        position: fixed;
+        /* Stay in place */
+        z-index: 1;
+        /* Stay on top */
+        top: 0;
+        left: 0;
+        background-image: url("https://i.pinimg.com/originals/5a/c1/29/5ac1296b709f4427d4c7785a322d78a2.png");
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-position: center;
+        background-size: cover;
+        overflow-x: hidden;
+        /* Disable horizontal scroll */
+        padding-top: 60px;
+        /* Place content 60px from the top */
+        transition: 0.5s;
+        /* 0.5 second transition effect to slide in the sidebar */
+    }
+
+    /* Position and style the close button (top right corner) */
+    .sidebar .closebtn {
+        position: absolute;
+        color: #aaaaaa;
+        top: 0;
+        right: 25px;
+        font-size: 36px;
+        margin-left: 50px;
+    }
+
+    /* The button used to open the sidebar */
+    .openbtn {
+        position: absolute;
+        width: 120px;
+        left: 0px;
+        top: 10px;
+        padding: 5px;
+        border: none;
+        margin: 10px;
+        font-size: 25px;
+        outline: none; 
+        letter-spacing: 1px;
+        cursor: pointer;
+        background-color: transparent;
+        color: rgb(59, 59, 59);
+    }
+    .openCard{
+        position: absolute;
+        width: 60px;
+        left: 100px;
+        top: 10px;
+        padding: 5px;
+        margin: 10px;
+        border: 2px solid rgb(59, 59, 59);
+        font-size: 25px;
+        outline: none; 
+        letter-spacing: 1px;
+        cursor: pointer;
+        background-color: transparent;
+        color: rgb(59, 59, 59);
+    }
+
+    /* Style page content - use this if you want to push the page content to the right when you open the side navigation */
+    #main {
+        transition: margin-left .5s;
+        /* If you want a transition effect */
+        padding: 20px;
+    }
+
+ 
+    .dropbtn {
+        position: absolute;
+        right: 20px;
+        top: 10px;
+        width: 120px;
+        padding: 12px;
+        margin: 10px;
+        border: 2px solid rgb(59, 59, 59);
+        font-size: 18px;
+        outline: none; 
+        letter-spacing: 1px;
+        cursor: pointer;
+        background-color: transparent;
+        color: rgb(59, 59, 59);
+        font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
+      }
+      
+      .dropdown-content {
+        display: none;
+        position: absolute;
+        right: 20px;
+        top: 73px;
+        background-color: #f1f1f1;
+        min-width: 160px;
+        overflow: auto;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+      }
+      
+      .dropdown-content a {
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+      }
+      
+      .dropdown a:hover {background-color: #ddd;}
+      
+      .show {display: block;}
+
+      input[type=text] {
+        width: 75%;
+        padding: 12px 20px;
+        margin: 5px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+      }
+
+      select{
+        width: 75%;
+        padding: 12px 20px;
+        margin: 5px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+      }
+
+      textarea {
+        width: 75%;
+        padding: 5px 20px;
+        margin: 5px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+      }
+      
+      input[type=date] {
+        width: 37%;
+        padding: 8px 10px;
+        margin: 5px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+      }
+      input[type=time] {
+        width: 37%;
+        padding: 8px 10px;
+        margin: 5px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+      }
+
+      input[type=button] {
+        width: 37%;
+        padding: 8px 10px;
+        margin: 5px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
+      }
+
+      input[type=button].button2 {
+        width: 100%;
+        padding:10px;
+        border:0.5px solid rgb(0, 0, 0);
+        background: #FFFFFF;
+        margin:0 0.3em 0.3em 0;
+        border-radius:0.12em;
+        box-sizing: border-box;
+        text-decoration:none;
+        font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
+        font-weight:300;
+        font-size: 20px;
+        color:rgb(0, 0, 0);
+        text-align:center;
+      }
+
+      input[type=submit] {
+        width: 25%;
+        background-color: rgb(136, 171, 211);
+        color: white;
+        padding: 10px 20px;
+        margin: 8px 0;
+        font-size: 15px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+      
+      input[type=submit]:hover {
+        background-color: #4574a0;
+      }
+
+      .display-today {
+        display: flex;
+      }
+
+      .display-tomorrow {
+        display: flex;
+      }
+
+      .display-week {
+        display: flex;
+      }
+
+      .display-month {
+        display: flex;
+      }
+
+      .display-year {
+        display: flex;
+      }
+
+      .display-notes {
+        display: flex;
+      }
+          
