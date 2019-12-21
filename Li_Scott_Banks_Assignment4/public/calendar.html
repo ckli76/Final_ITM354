@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang='en'>
-
+  <!--I did not have enough time to finish up adding cool functionalities to the calendar. My bad-->
 <head>
     <link href="style.css" rel="stylesheet">
     <!--Reference CSS-->
@@ -58,7 +58,7 @@
         // --- Script for the calendar ---
         document.addEventListener('DOMContentLoaded', function () {
             var calendarEl = document.getElementById('calendar');
-
+        //I LUV PLUGINS, this worked. It just works because I followed instructions and adjusted. THANK GOD FOR PLUGINS
             var calendar = new FullCalendar.Calendar(calendarEl, {
                 plugins: ['interaction', 'dayGrid', 'timeGrid'],
                 header: {
@@ -72,8 +72,9 @@
                     $.ajax({
                         url: "/getAllCards",
                         type: 'GET',
-                    }).done(function (response) {
-                        var events = [];
+                    }).done(function (response) { //This... was so difficult. Because I recieved the data from the server but I had to format it to something the calendar
+                        var events = []; //plugin could read. I had to get moment for this again. Additionally, the plugin had to have certain property names for each
+                        //object which made it even more annoying to fix. Wasn't much help online either. So, I changed it the right date format and pushed into an array I declared beforehand
                         //console.log(response)
                         for (var i = 0; i < response.length; i++) {
                             for (var j = 0; j < response[i].length; j++) {
@@ -115,11 +116,13 @@
 
     <!-- The Modal -->
     <div id="myModal" class="modal">
-
-        <!-- Modal content -->
+        
+        <!-- Modal content with the card-->
         <div class="modal-content">
             <span class="close">&times;</span>
             <h2 style="text-align: center;">Enter Card Information</h2>
+            <!--POST with many different input types including date & time as well as select + a text area-->
+            <!--The buttons run functions that change the hidden input that conveys whether or not the card type event/note is true or false-->
         <form name="card_input" id="card_input" method="POST" action="/card_registered">
             <input type="text" id="username" name="username" placeholder="Placeholder for Username">
             <div>
@@ -128,7 +131,7 @@
                 <input type="button" id="cardBtn_event" name="cardBtn_event" value="Event" onclick='document.getElementById("card_input").elements.namedItem("event").value = true;
                           document.getElementById("card_input").elements.namedItem("note").value = false'>
                 <input type="hidden" id="event" name="event" value=true>
-
+                
                 <input type="button" id="cardBtn_note" name="cardBtn_note" value="Note" onclick='document.getElementById("card_input").elements.namedItem("event").value = false;
                           document.getElementById("card_input").elements.namedItem("note").value = true'>
                 <input type="hidden" id="note" name="note" value=false>
@@ -181,12 +184,12 @@
             }
         }
 
-        $("#cardBtn_note").click(function () {
+        $("#cardBtn_note").click(function () { //This hides the elements when note is true and you press the button. Uses jquery and method .click and .hide
             $("#time").hide();
             $("#date").hide();
         });
-        $("#cardBtn_event").click(function () {
-            $("#time").show();
+        $("#cardBtn_event").click(function () { //This shows the elements when event is true and you press the button. Uses jquery and method .click and .hide
+            $("#time").show(); //I had to make this because once you hide that element, you have to show it somehow back again.
             $("#date").show();
         });
     </script>

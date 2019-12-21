@@ -184,9 +184,9 @@ app.post("/card_registered", function (request, response) {
     console.log("Got the card registration request"); //Lets admin know grabbing the registration data was a success
     //console.log(request.body); //Lets admin see what was inputted in all the fields
     // process a card request
-    username_data = cardData.username;
+    username_data = cardData.username; //This should be the username cookie in the browser. My teammates were suppose to give me a method to access that and have working logout/login.
     title_data = cardData.title;
-    event_data = JSON.parse(cardData.event);
+    event_data = JSON.parse(cardData.event); //Yeah, formatting is wrong yet again. So make it back to booleon so everything is the same.
     note_data = JSON.parse(cardData.note);
     date_data = cardData.date;
     time_data = cardData.time;
@@ -204,8 +204,8 @@ app.post("/card_registered", function (request, response) {
     }
 
     if (typeof users_reg_data[username_data][tag_data] != 'undefined') {
-        users_reg_data[username_data][tag_data].push(NewcardData)
-        console.log(users_reg_data[username_data][tag_data])
+        users_reg_data[username_data][tag_data].push(NewcardData) //Just getting the data in the JSON array and fitting it in. No need to care about organization
+        console.log(users_reg_data[username_data][tag_data])//We organize later down the code
         console.log("Data has been proccessed!")
     };
 
@@ -238,6 +238,7 @@ function CardTagSort(TagName) {
     var CardData = users_reg_data.itm352[TagName]
     return CardData;
 }
+//This would've made the page more dynamic, unfortunately the only user that gets the data now is itm352. The lucky chap. 
 
 //IN CASE MY GROUP FINISHES THEIR PART I WILL USE THIS!
 //In that case I'll have send two data and recieve two
@@ -274,18 +275,19 @@ function FindToday(CardTagName) {
     //console.log(EqualToday)
     return sortToday;
 };
-
+//moment has a function that can calculte a certain time from today's date and time. For example: I want 1 week from today's time. This is happening for each of these functions.
+//I set this calulation to see if the our card time is earlier or later than the calculated date and put it in categories
 var m2 = moment();
 var a = m2.add(1, "days")
 var stringone = `${a.toISOString()}`
-thisTmrrw = new Date(stringone)
-var tomorrow = thisTmrrw.getFullYear() + '-' + ("0" + (thisTmrrw.getMonth() + 1)).slice(-2) + '-' + ("0" + thisTmrrw.getDate()).slice(-2);
+thisTmrrw = new Date(stringone) 
+var tomorrow = thisTmrrw.getFullYear() + '-' + ("0" + (thisTmrrw.getMonth() + 1)).slice(-2) + '-' + ("0" + thisTmrrw.getDate()).slice(-2); //Gotta format it to match my card values, so instead of parsing it, I slice it to pieces. The women and children too.
 
 function FindTomorrow(CardTagName) {
-    //Next is Tomorrow: Checking for tomorrow from current date
-    const EqualTomorrow = CardTagName.filter(YESTmrrw => date < YESTmrrw.date && YESTmrrw.date === tomorrow)
-    const EqualEvent = EqualTomorrow.filter(YESevent => YESevent.event === true)
-    const sortTomorrow = EqualEvent.sort((a, b) => (a.date > b.date || a.time > b.time ? 1 : -1));
+    //Next is Tomorrow: Checking for tomorrow from current date                                                 FILTER CHALLENGE
+    const EqualTomorrow = CardTagName.filter(YESTmrrw => date < YESTmrrw.date && YESTmrrw.date === tomorrow) //First: Does the data match the calualtion and is it greater than today? This means it's tomorrow's date!
+    const EqualEvent = EqualTomorrow.filter(YESevent => YESevent.event === true) //Second: I only want cards that are events and not notes. So I filter through again from the previously filtered data.
+    const sortTomorrow = EqualEvent.sort((a, b) => (a.date > b.date || a.time > b.time ? 1 : -1)); //Now, I have to organize the filtered dates from earliest to latest in both time and date
     //console.log(EqualTomorrow)
     return sortTomorrow;
 };

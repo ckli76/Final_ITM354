@@ -31,6 +31,12 @@
             <input type='button' class="button2" id="NotesCall" value='Notes'
                 onclick='document.getElementById("DataType").value = "notes"'><br><br>
             <input type="hidden" class="button2" id="DataType" name="DataType" value="tasks">
+            <!--This code above just changes the hidden input into the respective tags. When a tag button pressed, the hidden inputs changes with it
+            This is important because I'm using the hidden input to send data to the server so they can send the respective tag's cards. Otherwise, I would
+            be getting task cards for appointments and not appointment cards.
+        
+            Note: I was going to use the same method of setting the value of the hidden input to reference the user cookie that was logged in and send
+            that data to the server so it could know which user was asking for the info. Alas, the cookie and sessions were not complete-->
         </div>
         <div id="main">
             <div class="dropdown">
@@ -56,7 +62,7 @@
             <h1 id="Heading2">Tomorrow</h1>
             <div class="display-tomorrow">
             </div>
-            <h1 id="Heading3">This Week</h1>
+            <h1 id="Heading3">This Week</h1> <!--Just setting up the classes and ids for CSS and AJAX-->
             <div class="display-week">
             </div>
             <h1 id="Heading4">This Month</h1>
@@ -150,7 +156,7 @@
             $("#time").show();
             $("#date").show();
         });
-
+        //Just hiding and showing headings here. Making the function so when the button presses, the headings disappear or reappear depending if its a note.
         function HideHeadings() {
             $("#Heading1").hide();
             $("#Heading2").hide();
@@ -212,7 +218,7 @@
         //console.log(document.getElementById("DataType").value)
         //Onload the task card appears
         function ClickThat() { DisplayToday(); DisplayTomorrow(); DisplayWeek(); DisplayMonth(); DisplayYear(); DisplayNotes(); };
-
+        //You press the button. You recieve the information. All the needed functions run. 
         $("#TaskCall").click(function () {
             ReturnHeadings(); DisplayToday(); DisplayTomorrow(); DisplayWeek(); DisplayMonth(); DisplayYear(); DisplayNotes();
         });

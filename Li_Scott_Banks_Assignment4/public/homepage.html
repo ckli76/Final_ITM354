@@ -51,6 +51,8 @@
 
 <body>
     <div id='card'>
+        <!--POST with many different input types including date & time as well as select + a text area-->
+        <!--The buttons run functions that change the hidden input that conveys whether or not the card type event/note is true or false-->
         <h2 style="text-align: center;">Enter Card Information</h2>
         <form name="card_input" id="card_input" method="POST" action="/card_registered">
             <input type="text" id="username" name="username" value="itm352" placeholder="Placeholder for Username">
@@ -84,13 +86,13 @@
         </form>
     </div>
     <script>
-        $("#cardBtn_note").click(function () {
+        $("#cardBtn_note").click(function () { //This hides the elements when note is true and you press the button. Uses jquery and method .click and .hide
             $("#time").hide();
             $("#date").hide();
         });
-        $("#cardBtn_event").click(function () {
-            $("#time").show();
-            $("#date").show();
+        $("#cardBtn_event").click(function () { //This shows the elements when event is true and you press the button. Uses jquery and method .click and .hide
+            $("#time").show(); //I had to make this because once you hide that element, you have to show it somehow back again.
+            $("#date").show(); 
         });
     </script>
 
@@ -110,7 +112,7 @@
                 for (i = 0; i < dropdowns.length; i++) {
                     var openDropdown = dropdowns[i];
                     if (openDropdown.classList.contains('show')) {
-                        openDropdown.classList.remove('show');
+                        openDropdown.classList.remove('show'); 
                     }
                 }
             }
