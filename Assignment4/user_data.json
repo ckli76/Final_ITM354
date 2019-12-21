@@ -1,0 +1,477 @@
+{
+    "dport": {
+        "name": "Dan Port",
+        "password": "portspassword",
+        "email": "dport@hawaii.edu",
+        "tasks": [],
+        "work": [],
+        "appointments": [],
+        "occasion": [],
+        "notes": []
+    },
+    "kazman": {
+        "name": "Rick Kazman",
+        "password": "kazmanpassword",
+        "email": "kazman@hawaii.edu",
+        "tasks": [],
+        "work": [],
+        "appointments": [
+            {
+                "title": "Hula Lessons",
+                "event": true,
+                "note": false,
+                "date": "2019-12-25",
+                "time": "08:30",
+                "description": "Bring Aloha Shirts!"
+            }
+        ],
+        "occasion": [],
+        "notes": []
+    },
+    "itm352": {
+        "name": "ITM 352",
+        "password": "grader",
+        "email": "itm352@hawaii.edu",
+        "tasks": [
+            {
+                "title": "Clean Pool",
+                "event": true,
+                "note": false,
+                "date": "2019-12-17",
+                "time": "10:30",
+                "description": "Get a contracter? Ask gramps?"
+            },
+            {
+                "title": "Shop for Groceries",
+                "event": true,
+                "note": false,
+                "date": "2019-12-15",
+                "time": "11:30",
+                "description": "No expired foods or I'm getting thrown out"
+            },
+            {
+                "title": "Look after the baby",
+                "event": true,
+                "note": false,
+                "date": "2020-03-01",
+                "time": "12:30",
+                "description": "What's that recipe?"
+            },
+            {
+                "title": "Find missing book",
+                "event": true,
+                "note": false,
+                "date": "2019-12-18",
+                "time": "07:30",
+                "description": "I mean, who reads books? Pshhh. Maybe I do."
+            },
+            {
+                "title": "Craft a model plane",
+                "event": true,
+                "note": false,
+                "date": "2019-12-26",
+                "time": "03:30",
+                "description": "Model plane wheeeee!"
+            },
+            {
+                "title": "Scream at the sky",
+                "event": true,
+                "note": false,
+                "date": "2019-12-24",
+                "time": "07:30",
+                "description": "Sometimes you just feel like it"
+            },
+            {
+                "title": "Why are there so many tasks?",
+                "event": true,
+                "note": false,
+                "date": "2020-01-27",
+                "time": "04:30",
+                "description": "Because you have to test this annoying program"
+            },
+            {
+                "title": "Notes on babysitting",
+                "event": false,
+                "note": true,
+                "description": "Fortnite?"
+            },
+            {
+                "title": "Movies coming out",
+                "event": false,
+                "note": true,
+                "description": "Cat, Rise of Skywalker"
+            }
+        ],
+        "work": [
+            {
+                "title": "Study for exam!",
+                "event": true,
+                "note": false,
+                "date": "2019-12-19",
+                "time": "09:30",
+                "description": "Ughhhh. Kill me plz"
+            },
+            {
+                "title": "Recite the pledge of allegience backwards",
+                "event": true,
+                "note": false,
+                "date": "2019-12-17",
+                "time": "12:30",
+                "description": "all for justice and liberty with indivisible, God under nation one..."
+            },
+            {
+                "title": "Figure how to add 1 + 1",
+                "event": true,
+                "note": false,
+                "date": "2019-12-16",
+                "time": "02:30",
+                "description": "A difficult problem, this is..."
+            },
+            {
+                "title": "Breakdance for class",
+                "event": true,
+                "note": false,
+                "date": "2019-12-20",
+                "time": "08:30",
+                "description": "Why???? What class needs breakdancing?"
+            },
+            {
+                "title": "Finish presentation",
+                "event": true,
+                "note": false,
+                "date": "2019-12-22",
+                "time": "05:30",
+                "description": "Oops"
+            },
+            {
+                "title": "Beat up rival executive",
+                "event": true,
+                "note": false,
+                "date": "2019-12-27",
+                "time": "01:30",
+                "description": "Maybe a baseball bat....."
+            },
+            {
+                "title": "Drive the injured employee to the hospital",
+                "event": true,
+                "note": false,
+                "date": "2019-12-18",
+                "time": "11:30",
+                "description": "Drive safetly, take safe roads!"
+            },
+            {
+                "title": "Why am I torturing myself?",
+                "event": true,
+                "note": false,
+                "date": "2020-01-30",
+                "time": "04:30",
+                "description": "I dunno why you ask?"
+            },
+            {
+                "title": "This is a work note!",
+                "event": false,
+                "note": true,
+                "description": "Tell my boss that I'm sick on the day that a movie comes out"
+            },
+            {
+                "title": "How to sneak out of work?",
+                "event": false,
+                "note": true,
+                "description": "Break a leg? Get rope to grapple down from window?"
+            }
+        ],
+        "appointments": [
+            {
+                "title": "Doctor's Appointment",
+                "event": true,
+                "note": false,
+                "date": "2020-01-17",
+                "time": "22:30",
+                "description": "I'm scared... :("
+            },
+            {
+                "title": "Executive Meeting",
+                "event": true,
+                "note": false,
+                "date": "2019-12-25",
+                "time": "04:30",
+                "description": "I'm going to glare menancingly at everyone"
+            },
+            {
+                "title": "How to make the doctor scared of me",
+                "event": false,
+                "note": true,
+                "description": "I should get a big machete... A HUGE MACHETE"
+            },
+            {
+                "title": "Doctor's name",
+                "event": false,
+                "note": true,
+                "description": "Anna Wilkins - (###) ###-####"
+            },
+            {
+                "title": "Hula Lessons",
+                "event": true,
+                "note": false,
+                "date": "2019-12-25",
+                "time": "08:30",
+                "description": "Remember to bring Aloha Shirts!"
+            }
+        ],
+        "occasion": [
+            {
+                "title": "Wedding",
+                "event": true,
+                "note": false,
+                "date": "2019-12-31",
+                "time": "04:30",
+                "description": "Happy vibes everywhere! Someone married!"
+            },
+            {
+                "title": "Funeral",
+                "event": true,
+                "note": false,
+                "date": "2020-01-3",
+                "time": "22:30",
+                "description": "Sad vibes everywhere... someone died..."
+            }
+        ],
+        "notes": [
+            {
+                "title": "What came first? The chicken or egg?",
+                "event": false,
+                "note": true,
+                "description": "Answer: A circle has no beginning"
+            },
+            {
+                "title": "So much typing. Last note!",
+                "event": false,
+                "note": true,
+                "description": "Great note!"
+            }
+        ]
+    },
+    "tester": {
+        "name": "testername",
+        "password": "tester12",
+        "email": "tester@gmail.com",
+        "tasks": [
+            {
+                "title": "Clean Pool",
+                "event": true,
+                "note": false,
+                "date": "2019-12-17",
+                "time": "10:30",
+                "description": "Get a contracter? Ask gramps?"
+            },
+            {
+                "title": "Shop for Groceries",
+                "event": true,
+                "note": false,
+                "date": "2019-12-15",
+                "time": "11:30",
+                "description": "No expired foods or I'm getting thrown out"
+            },
+            {
+                "title": "Look after the baby",
+                "event": true,
+                "note": false,
+                "date": "2020-03-01",
+                "time": "12:30",
+                "description": "What's that recipe?"
+            },
+            {
+                "title": "Find missing book",
+                "event": true,
+                "note": false,
+                "date": "2019-12-18",
+                "time": "07:30",
+                "description": "I mean, who reads books? Pshhh. Maybe I do."
+            },
+            {
+                "title": "Craft a model plane",
+                "event": true,
+                "note": false,
+                "date": "2019-12-26",
+                "time": "03:30",
+                "description": "Model plane wheeeee!"
+            },
+            {
+                "title": "Scream at the sky",
+                "event": true,
+                "note": false,
+                "date": "2019-12-24",
+                "time": "07:30",
+                "description": "Sometimes you just feel like it"
+            },
+            {
+                "title": "Why are there so many tasks?",
+                "event": true,
+                "note": false,
+                "date": "2020-01-27",
+                "time": "04:30",
+                "description": "Because you have to test this annoying program"
+            },
+            {
+                "title": "Notes on babysitting",
+                "event": false,
+                "note": true,
+                "description": "Fortnite?"
+            },
+            {
+                "title": "Movies coming out",
+                "event": false,
+                "note": true,
+                "description": "Cat, Rise of Skywalker"
+            }
+        ],
+        "work": [
+            {
+                "title": "Study for exam!",
+                "event": true,
+                "note": false,
+                "date": "2019-12-19",
+                "time": "09:30",
+                "description": "Ughhhh. Kill me plz"
+            },
+            {
+                "title": "Recite the pledge of allegience backwards",
+                "event": true,
+                "note": false,
+                "date": "2019-12-17",
+                "time": "12:30",
+                "description": "all for justice and liberty with indivisible, God under nation one..."
+            },
+            {
+                "title": "Figure how to add 1 + 1",
+                "event": true,
+                "note": false,
+                "date": "2019-12-16",
+                "time": "02:30",
+                "description": "A difficult problem, this is..."
+            },
+            {
+                "title": "Breakdance for class",
+                "event": true,
+                "note": false,
+                "date": "2019-12-20",
+                "time": "08:30",
+                "description": "Why???? What class needs breakdancing?"
+            },
+            {
+                "title": "Finish presentation",
+                "event": true,
+                "note": false,
+                "date": "2019-12-22",
+                "time": "05:30",
+                "description": "Oops"
+            },
+            {
+                "title": "Beat up rival executive",
+                "event": true,
+                "note": false,
+                "date": "2019-12-27",
+                "time": "01:30",
+                "description": "Maybe a baseball bat....."
+            },
+            {
+                "title": "Drive the injured employee to the hospital",
+                "event": true,
+                "note": false,
+                "date": "2019-12-18",
+                "time": "11:30",
+                "description": "Drive safetly, take safe roads!"
+            },
+            {
+                "title": "Why am I torturing myself?",
+                "event": true,
+                "note": false,
+                "date": "2020-01-30",
+                "time": "04:30",
+                "description": "I dunno why you ask?"
+            },
+            {
+                "title": "This is a work note!",
+                "event": false,
+                "note": true,
+                "description": "Tell my boss that I'm sick on the day that a movie comes out"
+            },
+            {
+                "title": "How to sneak out of work?",
+                "event": false,
+                "note": true,
+                "description": "Break a leg? Get rope to grapple down from window?"
+            }
+        ],
+        "appointments": [
+            {
+                "title": "Doctor's Appointment",
+                "event": true,
+                "note": false,
+                "date": "2020-01-17",
+                "time": "22:30",
+                "description": "I'm scared... :("
+            },
+            {
+                "title": "Executive Meeting",
+                "event": true,
+                "note": false,
+                "date": "2019-12-25",
+                "time": "04:30",
+                "description": "I'm going to glare menancingly at everyone"
+            },
+            {
+                "title": "How to make the doctor scared of me",
+                "event": false,
+                "note": true,
+                "description": "I should get a big machete... A HUGE MACHETE"
+            },
+            {
+                "title": "Doctor's name",
+                "event": false,
+                "note": true,
+                "description": "Anna Wilkins - (###) ###-####"
+            },
+            {
+                "title": "Hula Lessons",
+                "event": true,
+                "note": false,
+                "date": "2019-12-25",
+                "time": "08:30",
+                "description": "Remember to bring Aloha Shirts!"
+            }
+        ],
+        "occasion": [
+            {
+                "title": "Wedding",
+                "event": true,
+                "note": false,
+                "date": "2019-12-31",
+                "time": "04:30",
+                "description": "Happy vibes everywhere! Someone married!"
+            },
+            {
+                "title": "Funeral",
+                "event": true,
+                "note": false,
+                "date": "2020-01-3",
+                "time": "22:30",
+                "description": "Sad vibes everywhere... someone died..."
+            }
+        ],
+        "notes": [
+            {
+                "title": "What came first? The chicken or egg?",
+                "event": false,
+                "note": true,
+                "description": "Answer: A circle has no beginning"
+            },
+            {
+                "title": "So much typing. Last note!",
+                "event": false,
+                "note": true,
+                "description": "Great note!"
+            }
+        ]
+    }
+}

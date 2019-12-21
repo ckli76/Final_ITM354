@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- OTHER PART's CODE-->
+<script>
+    function removeCookies() {
+        var res = document.cookie;
+        var multiple = res.split(";");
+        for (var i = 0; i < multiple.length; i++) {
+            var key = multiple[i].split("=");
+            document.cookie = key[0] + " =; expires = Thu, 01 Jan 1970 00:00:00 UTC";
+        }
+    }
+
+    var currentUser = Parse.User.current();
+    if (currentUser) {
+        Parse.User.logout();
+        window.location = "login.html";
+    } else {
+        window.location = "homepage.html";
+    }
+
+</script>
+
+<!-- MY CODE STARTS-->
+
+
+<head>
+    <link href="style.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.4.1.js"
+        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Index</title>
+</head>
+<header>
+    <button onclick="myFunction()" class="dropbtn">Directory</button>
+    <div id="myDropdown" class="dropdown-content">
+        <a href="homepage.html">Home</a>
+        <a href="card_index.html">Card Index</a>
+        <a href="calendar.html">Calendar</a>
+    </div>
+    <h1 style="text-align: center; font-size: 40px;">Homepage</h1>
+
+</header>
+
+<body>
+    <div id='card'>
+        <h2 style="text-align: center;">Enter Card Information</h2>
+        <form name="card_input" id="card_input" method="POST" action="/card_registered">
+            <input type="text" id="username" name="username" value="itm352" placeholder="Placeholder for Username">
+            <div>
+                <input type="text" id="title" name="title" placeholder="Add title">
+            </div>
+            <input type="button" id="cardBtn_event" name="cardBtn_event" value="Event" onclick='document.getElementById("card_input").elements.namedItem("event").value = true;
+                          document.getElementById("card_input").elements.namedItem("note").value = false'>
+            <input type="hidden" id="event" name="event" value=true>
+
+            <input type="button" id="cardBtn_note" name="cardBtn_note" value="Note" onclick='document.getElementById("card_input").elements.namedItem("event").value = false;
+                          document.getElementById("card_input").elements.namedItem("note").value = true'>
+            <input type="hidden" id="note" name="note" value=false>
+            <div>
+                <input type="date" id="date" name="date" data-date-inline-picker="false"
+                    data-date-open-on-focus="true" />
+                <input type="time" id="time" name="time" value="00:00:00" step="1800">
+            </div>
+            <div> <textarea name="description" id="description" rows="10" cols="30"
+                    placeholder="Add description"></textarea></div>
+            <div>
+                <select id="tag" name="tag">
+                    <option value="tasks">Tasks</option>
+                    <option value="work">Work</option>
+                    <option value="appointments">Appointments</option>
+                    <option value="occasion">Occasion</option>
+                    <option value="notes">Notes</option>
+                </select>
+            </div>
+            <div><input type="submit" value="submit"></div>
+        </form>
+    </div>
+    <script>
+        $("#cardBtn_note").click(function () {
+            $("#time").hide();
+            $("#date").hide();
+        });
+        $("#cardBtn_event").click(function () {
+            $("#time").show();
+            $("#date").show();
+        });
+    </script>
+
+    <!--DROPDOWN-->
+    <script>
+        /* When the user clicks on the button, 
+        toggle between hiding and showing the dropdown content */
+        function myFunction() {
+            document.getElementById("myDropdown").classList.toggle("show");
+        }
+
+        // Close the dropdown if the user clicks outside of it
+        window.onclick = function (event) {
+            if (!event.target.matches('.dropbtn')) {
+                var dropdowns = document.getElementsByClassName("dropdown-content");
+                var i;
+                for (i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+        }
+    </script>
+    <!--Other part's code-->
+    <div style='text-align: center;'>
+        <form name="basic_login" method="POST" action="/logout">
+            <input type="submit" value="Logout" id="logout" class="btn btn-primary btn-lg" onclick="removeCookies()" ;>
+        </form>
+    </div>
+</body>
+
+
+</html>

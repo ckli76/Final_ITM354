@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <link href="style.css" rel="stylesheet">
+    <!--Reference CSS-->
+    <link href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/core/main.css' rel='stylesheet' />
+    <link href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/daygrid/main.css' rel='stylesheet' />
+    <link href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/timegrid/main.css' rel='stylesheet' />
+    <!--Reference JS files-->
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/core/main.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/interaction/main.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/daygrid/main.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/timegrid/main.js'></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.js"
+        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+    <script src="https://momentjs.com/downloads/moment.js"></script>
+    <meta charset='utf-8' />
+
+    <script src="https://code.jquery.com/jquery-3.4.1.js"
+        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+
+    <!--Styling-->
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
+            font-size: 14px;
+        }
+
+        #calendar {
+            max-width: 900px;
+            margin: 40px auto;
+        }
+    </style>
+
+    <!--Script Begins-->
+    <script>
+        // --- Script to get the event inputs from server (Sending JSON)
+        /*var test = [];
+        $.get('/getAllCards', function (data) {
+            console.log(data)
+            for (var i = 0; i < data.length; i++) {
+                for (var j = 0; j < data[i].length; j++)
+                    test.push({
+                        title: data[i][j].title,
+                        start: data[i][j].date,
+                    });
+                }}); 
+
+                console.log(test) */
+
+        // --- Script for the calendar ---
+        document.addEventListener('DOMContentLoaded', function () {
+            var calendarEl = document.getElementById('calendar');
+
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                plugins: ['interaction', 'dayGrid', 'timeGrid'],
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                },
+                eventLimit: true, // when too many events in a day, show the popover
+
+                events: function (start, callback) {
+                    $.ajax({
+                        url: "/getAllCards",
+                        type: 'GET',
+                    }).done(function (response) {
+                        var events = [];
+                        //console.log(response)
+                        for (var i = 0; i < response.length; i++) {
+                            for (var j = 0; j < response[i].length; j++) {
+                                var item = response[i][j];
+                                var dateTime = moment(`${item["date"]} ${item["time"]}`, 'YYYY-MM-DD hh:mm').format();
+
+                                events.push({
+                                    title: item["title"],
+                                    start: dateTime
+                                });
+                            }
+                        }
+                        console.log(events)
+                        callback(events)
+                    });
+                },
+
+            })
+
+            calendar.render();
+        });
+
+    </script>
+</head>
+
+<body>
+    <button class="openCard" id="OpenBtn"><strong>&#128466</strong></button>
+    <div class="dropdown">
+        <button onclick="myFunction()" class="dropbtn">Directory</button>
+        <div id="myDropdown" class="dropdown-content">
+            <a href="homepage.html">Home</a>
+            <a href="card_index.html">Card Index</a>
+            <a href="calendar.html">Calendar</a>
+        </div>
+    </div>
+    <div id='calendar'></div>
+
+    <!--MODAL STARTS HERE-->
+
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 style="text-align: center;">Enter Card Information</h2>
+        <form name="card_input" id="card_input" method="POST" action="/card_registered">
+            <input type="text" id="username" name="username" placeholder="Placeholder for Username">
+            <div>
+                <input type="text" id="title" name="title" placeholder="Add title">
+            </div>
+                <input type="button" id="cardBtn_event" name="cardBtn_event" value="Event" onclick='document.getElementById("card_input").elements.namedItem("event").value = true;
+                          document.getElementById("card_input").elements.namedItem("note").value = false'>
+                <input type="hidden" id="event" name="event" value=true>
+
+                <input type="button" id="cardBtn_note" name="cardBtn_note" value="Note" onclick='document.getElementById("card_input").elements.namedItem("event").value = false;
+                          document.getElementById("card_input").elements.namedItem("note").value = true'>
+                <input type="hidden" id="note" name="note" value=false>
+            <div>
+                <input type="date" id="date" name="date" data-date-inline-picker="false"
+                    data-date-open-on-focus="true" />
+                <input type="time" id="time" name="time" value="00:00:00" step="1800">
+            </div>
+            <div> <textarea name="description" id="description" rows="10" cols="30"
+                    placeholder="Add description"></textarea></div>
+            <div>
+                <select id="tag" name="tag">
+                    <option value="tasks">Tasks</option>
+                    <option value="work">Work</option>
+                    <option value="appointments">Appointments</option>
+                    <option value="occasion">Occasion</option>
+                    <option value="notes">Notes</option>
+                </select>
+            </div>
+            <div><input type="submit" value="submit"></div>
+        </form>
+        </div>
+
+    </div>
+
+    <script>
+        // Get the modal
+        var modal = document.getElementById("myModal");
+
+        // Get the button that opens the modal
+        var btn = document.getElementById("OpenBtn");
+
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+
+        // When the user clicks the button, open the modal 
+        btn.onclick = function () {
+            modal.style.display = "block";
+        }
+
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function () {
+            modal.style.display = "none";
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+        $("#cardBtn_note").click(function () {
+            $("#time").hide();
+            $("#date").hide();
+        });
+        $("#cardBtn_event").click(function () {
+            $("#time").show();
+            $("#date").show();
+        });
+    </script>
+
+    <!--DROPDOWN-->
+    <script>
+        /* When the user clicks on the button, 
+        toggle between hiding and showing the dropdown content */
+        function myFunction() {
+            document.getElementById("myDropdown").classList.toggle("show");
+        }
+
+        // Close the dropdown if the user clicks outside of it
+        window.onclick = function (event) {
+            if (!event.target.matches('.dropbtn')) {
+                var dropdowns = document.getElementsByClassName("dropdown-content");
+                var i;
+                for (i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+        }
+    </script>
+
+</body>
+
+</html>

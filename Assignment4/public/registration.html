@@ -1,0 +1,135 @@
+<!-- https://www.roseindia.net/javascript/AlphanumericValidationinJavaScript.shtml -->
+<!-- https://www.w3schools.com/howto/howto_js_toggle_password.asp -->
+<!-- https://html5-tutorial.net/form-validation/validating-email/ -->
+<!-- https://www.geeksforgeeks.org/password-matching-using-javascript/ -->
+
+<!DOCTYPE html>
+<html lang="en">
+<script>
+    function PWFunction() {
+        var showPW = document.getElementById("PWInput")
+        if (showPW.type === "password") {
+            showPW.type = "text";
+        } else {
+            showPW.type = "password";
+        }
+    }
+    function PWrepeatFunction() {
+        var repeatPW = document.getElementById("PWrepeat")
+        if (repeatPW.type === "password") {
+            repeatPW.type = "text";
+        } else {
+            repeatPW.type = "password";
+        }
+    }
+    var letters = /^[0-9a-zA-Z]+$/;
+    function UsernameError(q, sendArrayBack = false) {
+        errors = []; // assume no errors at first
+        if (q.length < 1 && q.length > -1) errors.push('Do not leave empty!'); { }
+        if (q.length > 0 && q.length < 4) errors.push('Too short!');
+        if (q.length > 15) errors.push('Too long!');
+        if (q.match(letters)) { }
+        else { errors.push('Alphanumeric only') }; // Check that it is an integer
+        if (sendArrayBack) {
+            return (errors);
+        }
+    }
+    function checkUserName() {
+        errs = UsernameError(basic_register.username_box.value, true);
+        if (errs.length > 0) {
+            username_box_message.innerHTML = errs.join(" | ");
+        }
+        else {
+            username_box_message.innerHTML = "&#10004;"
+        }
+    }
+    function PasswordError(q, sendArrayBack = false) {
+        errors = []; // assume no errors at first
+        if (q.length < 1 && q.length > -1) errors.push('Do not leave empty!'); { }
+        if (q.length > 0 && q.length < 5) errors.push('Too short!');
+        if (sendArrayBack) {
+            return (errors);
+        }
+    }
+    function checkPassword() {
+        errs = PasswordError(basic_register.PWInput.value, true);
+        if (errs.length > 0) {
+            password_box_message.innerHTML = errs.join(" | ");
+        }
+        else {
+            password_box_message.innerHTML = "&#10004;"
+        }
+    }
+    var password1;
+    function updatePassword() {
+        password1 = document.getElementById("basic_registerID").elements.namedItem("password").value;
+    }
+    function RePasswordError(q, sendArrayBack = false) {
+        errors = []; // assume no errors at first
+        if (q.length < 1 && q.length > -1) errors.push('Do not leave empty!'); { }
+        if (q.match(password1) && q.length == password1.length) { }
+        else { errors.push('Passwords do not match!') };
+        if (sendArrayBack) {
+            return (errors);
+        }
+    }
+    function REcheckPassword() {
+        errs = RePasswordError(basic_register.PWrepeat.value, true);
+        if (errs.length > 0) {
+            REpassword_box_message.innerHTML = errs.join(" | ");
+        }
+        else {
+            REpassword_box_message.innerHTML = "&#10004;"
+        }
+    }
+    var email_letters = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+    function EmailError(q, sendArrayBack = false) {
+        errors = []; // assume no errors at first
+        if (q.length < 1 && q.length > -1) errors.push('Do not leave empty!'); { }
+        if (q.match(email_letters)) { }
+        else { errors.push('Valid email only!') }; // Check that it is an integer
+        if (sendArrayBack) {
+            return (errors);
+        }
+    }
+    function checkEmail() {
+        errs = EmailError(basic_register.email_box.value, true);
+        if (errs.length > 0) {
+            email_box_message.innerHTML = errs.join(" | ");
+        }
+        else {
+            email_box_message.innerHTML = "&#10004;"
+        }
+    }
+</script>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="style1.css">
+</head>
+
+<body>
+    <form id="basic_registerID" name="basic_register" method="POST" action="/register">
+        <input type="text" name="username" id="username_box" size="40" placeholder="enter username"
+            onkeyup="checkUserName(); UsernameError();"><span id='username_box_message'></span><br />
+        <input type="password" name="password" id="PWInput" size="40" placeholder="enter password"
+            onkeyup="checkPassword(); updatePassword(); REcheckPassword();"><span
+            id='password_box_message'></span><br />
+        <input type="password" name="repeat_password" id="PWrepeat" size="40" placeholder="enter password again"
+            onkeyup="REcheckPassword();"><span id='REpassword_box_message'></span><br />
+        <input type="email" name="email" size="40" id="email_box" placeholder="enter email"
+            onkeyup="checkEmail();"><span id='email_box_message'></span><br />
+        <input type="submit" value="Register" id="submit_register">
+        <input type="checkbox" onclick="PWFunction(); PWrepeatFunction()">Show Password
+        <p class="message">Already a user? <a href='./login.html'>Login</a></p>
+        <a href="index.html">back to index</a>
+        
+    </form>
+   
+        
+</body>
+
+</html>

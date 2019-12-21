@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="style1.css">
+</head>
+
+<script>
+    function PWFunction() {
+        var showPW = document.getElementById("PWInput")
+        if (showPW.type === "password") {
+            showPW.type = "text";
+        } else {
+            showPW.type = "password";
+        }
+    }
+</script>
+
+<body>
+
+    <form name="basic_login" method="POST" action="/login">
+        <input type="text" id="username_input" name="username" size="40" placeholder="username"><br />
+        <input type="password" name="password" id="PWInput" size="40" placeholder="password"><br />
+        <input type="submit" value="Login" id="submit_login">
+        <input type="checkbox" onclick="PWFunction()";>Show Password
+        <p class="message">Not a user? <a href='./registration.html'>Register</a></p>
+        <a href="index.html">back to index</a>
+    </form>
+    
+    <p>I need to know what the password is. Reveal password like registration</p>
+    <p>Login inputs disappear if its an error. And I have to retype the username and password</p>
+    <p>not redirecting to homepage. Registration.html seems to work, but login doesn't</p>
+
+</body>
+
+</html>
